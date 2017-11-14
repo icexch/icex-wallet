@@ -1,14 +1,14 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Warchiefs
+ * User: Wariefs
  * Date: 14.11.17
  * Time: 20:06
  */
 
-namespace Icexch\IcexchWallet\Containers;
+namespace Icex\IcexWallet\Containers;
 
-use Icexch\IcexchWallet\Contracts\WalletContract;
+use Icex\IcexWallet\Contracts\WalletContract;
 use JsonRPC\Client;
 
 
@@ -22,7 +22,7 @@ class WalletContainer implements WalletContract {
 	 *
 	 * @param string $node_key
 	 *
-	 * @return Client
+	 * @return mixed
 	 */
 	protected function getClient($node_key = 'bitcoin')
 	{

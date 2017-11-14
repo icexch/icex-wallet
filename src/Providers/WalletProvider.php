@@ -6,7 +6,7 @@
  * Time: 20:11
  */
 
-namespace Icexch\IcexchWallet\Providers;
+namespace Icex\IcexWallet\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -15,7 +15,7 @@ class WalletProvider extends ServiceProvider{
 	public function boot()
 	{
 		$this->publishes([
-
+			__DIR__.'/path/to/config/courier.php' => config_path('courier.php'),
 		]);
 	}
 

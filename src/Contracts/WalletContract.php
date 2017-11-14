@@ -6,7 +6,7 @@
  * Time: 19:54
  */
 
-namespace Icexch\IcexchWallet\Contracts;
+namespace Icex\IcexWallet\Contracts;
 
 interface WalletContract {
 

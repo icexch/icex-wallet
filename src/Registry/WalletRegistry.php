@@ -6,5 +6,5 @@
  * Time: 19:52
  */
 
-namespace Icexch\IcexchWallet\Registry;
+namespace Icex\IcexWallet\Registry;
 

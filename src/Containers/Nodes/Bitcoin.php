@@ -1,14 +1,14 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Warchiefs
+ * User: Wariefs
  * Date: 14.11.17
  * Time: 20:08
  */
 
-namespace Icexch\IcexchWallet\Containers\Nodes;
+namespace Icex\IcexWallet\Containers\Nodes;
 
-use Icexch\IcexchWallet\Containers\WalletContainer;
+use Icex\IcexWallet\Containers\WalletContainer;
 
 class Bitcoin extends WalletContainer {
 
