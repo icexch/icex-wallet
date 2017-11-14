@@ -31,7 +31,7 @@ class WalletContainer implements WalletContract {
 		$client = new Client('http://'.$credentials['host'].':'.$credentials['port']);
 		return $client->getHttpClient()
 			->withUsername($credentials['user'])
-			->withPassword($credentials['passwords']);
+			->withPassword($credentials['password']);
 	}
 
 	public function getInfo()
