@@ -32,6 +32,16 @@ class WalletContainer implements WalletContract {
 		return new RPCClient($credentials['user'], $credentials['password'], $credentials['host'], $credentials['port']);
 	}
 
+    /**
+     * get response error
+     *
+     * @return string|null
+     */
+    public function getError()
+    {
+        return $this->client->error;
+    }
+
 	public function getInfo()
 	{
 		// Implements in Nodes

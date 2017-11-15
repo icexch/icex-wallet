@@ -17,8 +17,10 @@ class WalletProvider extends ServiceProvider{
 	public function boot()
 	{
 		$this->publishes([
-			__DIR__.'/path/to/config/courier.php' => config_path('courier.php'),
+			__DIR__.'/../Config/wallet.php' => config_path('wallet.php'),
 		]);
+
+        $this->loadRoutesFrom(__DIR__ . '/../Http/routes.php');
 
 		$this->app->make(WalletRegistry::class)
 			->register('bitcoin', new Bitcoin());
