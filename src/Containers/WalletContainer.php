@@ -9,7 +9,7 @@
 namespace Icex\IcexWallet\Containers;
 
 use Icex\IcexWallet\Contracts\WalletContract;
-use JsonRPC\Client;
+use Icex\IcexWallet\Models\RPCClient;
 
 
 class WalletContainer implements WalletContract {
@@ -28,15 +28,12 @@ class WalletContainer implements WalletContract {
 	{
 		$credentials = config('wallet.'.$node_key);
 
-		$client = new Client('http://'.$credentials['host'].':'.$credentials['port']);
-		return $client->getHttpClient()
-			->withUsername($credentials['user'])
-			->withPassword($credentials['password']);
+		return new RPCClient($credentials['user'], $credentials['password'], $credentials['host'], $credentials['port']);
 	}
 
 	public function getInfo()
 	{
-		//
+		// Implements in Nodes
 	}
 
 }

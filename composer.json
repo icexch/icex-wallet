@@ -14,11 +14,10 @@
             "Icex\\IcexWallet\\": "src/"
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
         "php" : ">=7.0",
-        "laravel/framework": ">=5.5",
-        "fguillot/json-rpc": "@stable"
+        "laravel/framework": ">=5.5"
     }
 }

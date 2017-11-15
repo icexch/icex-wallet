@@ -10,6 +10,7 @@ namespace Icex\IcexWallet\Containers\Nodes;
 
 use Icex\IcexWallet\Containers\WalletContainer;
 
+
 class Bitcoin extends WalletContainer {
 
 	public function __construct()
@@ -19,9 +20,7 @@ class Bitcoin extends WalletContainer {
 
 	public function getInfo()
 	{
-		$result = $this->client->execute('getinfo');
-
-		dd($result);
+		return $this->client->getinfo();
 	}
 
 }

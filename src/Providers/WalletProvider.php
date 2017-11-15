@@ -8,6 +8,8 @@
 
 namespace Icex\IcexWallet\Providers;
 
+use Icex\IcexWallet\Containers\Nodes\Bitcoin;
+use Icex\IcexWallet\Registry\WalletRegistry;
 use Illuminate\Support\ServiceProvider;
 
 class WalletProvider extends ServiceProvider{
@@ -17,11 +19,14 @@ class WalletProvider extends ServiceProvider{
 		$this->publishes([
 			__DIR__.'/path/to/config/courier.php' => config_path('courier.php'),
 		]);
+
+		$this->app->make(WalletRegistry::class)
+			->register('bitcoin', new Bitcoin());
 	}
 
 	public function register()
 	{
-
+		$this->app->singleton(WalletRegistry::class);
 	}
 
 }
