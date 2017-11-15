@@ -15,7 +15,8 @@ class Bitcoin extends WalletContainer {
 
 	public function __construct()
 	{
-		$this->client = $this->getClient('bitcoin');
+		$this->node = 'bitcoin';
+		$this->client = $this->getClient();
 	}
 
 	public function getInfo()

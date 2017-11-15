@@ -14,6 +14,7 @@ use Icex\IcexWallet\Models\RPCClient;
 
 class WalletContainer implements WalletContract {
 
+	protected $node;
 	protected $client;
 
 	/**
@@ -24,9 +25,9 @@ class WalletContainer implements WalletContract {
 	 *
 	 * @return mixed
 	 */
-	protected function getClient($node_key = 'bitcoin')
+	protected function getClient()
 	{
-		$credentials = config('wallet.'.$node_key);
+		$credentials = config('wallet.'.$this->node);
 
 		return new RPCClient($credentials['user'], $credentials['password'], $credentials['host'], $credentials['port']);
 	}
