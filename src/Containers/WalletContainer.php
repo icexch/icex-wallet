@@ -17,17 +17,20 @@ class WalletContainer implements WalletContract {
 	protected $node;
 	protected $client;
 
-	/**
-	 * Get JSON-RPC client instance
-	 * for current node
-	 *
-	 * @param string $node_key
-	 *
-	 * @return mixed
-	 */
-	protected function getClient()
+    /**
+     * Get JSON-RPC client instance
+     * for current node
+     *
+     * @param null|array $credentials
+     * @return mixed
+     * @internal param string $node_key
+     *
+     */
+	protected function getClient($credentials = null)
 	{
-		$credentials = config('wallet.'.$this->node);
+	    if (!$credentials) {
+            $credentials = config('wallet.'.$this->node);
+        }
 
 		return new RPCClient($credentials['user'], $credentials['password'], $credentials['host'], $credentials['port']);
 	}

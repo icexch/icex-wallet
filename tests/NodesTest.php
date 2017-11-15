@@ -7,16 +7,24 @@
  */
 
 use Icex\IcexWallet\Containers\Nodes\Bitcoin;
-//use PHPUnit\Framework\TestCase;
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 
 class NodesTest extends TestCase
 {
     public function testBitcoinGetInfoTest()
     {
-        $node = new Bitcoin;
+        // fill your credentials
+        $credentials = [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ];
 
+        $node = new Bitcoin($credentials);
+
+        // if rpc client have error this method will return false
         $this->assertNotFalse($node->getInfo());
     }
 }
