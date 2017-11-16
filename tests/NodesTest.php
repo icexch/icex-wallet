@@ -24,7 +24,10 @@ class NodesTest extends TestCase
 
         $node = new Bitcoin($credentials);
 
+        $info = $node->getInfo();
+
         // if rpc client have error this method will return false
-        $this->assertNotFalse($node->getInfo());
+        $this->assertNotFalse($info);
+        $this->assertEmpty($info['error']);
     }
 }
