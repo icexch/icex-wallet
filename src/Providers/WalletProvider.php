@@ -10,6 +10,9 @@ namespace Icex\IcexWallet\Providers;
 
 use Icex\IcexWallet\Containers\Nodes\Bitcoin;
 use Icex\IcexWallet\Containers\Nodes\BtcCash;
+use Icex\IcexWallet\Containers\Nodes\Dash;
+use Icex\IcexWallet\Containers\Nodes\Monero;
+
 use Icex\IcexWallet\Registry\WalletRegistry;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,7 +28,9 @@ class WalletProvider extends ServiceProvider{
 
 		$this->app->make(WalletRegistry::class)
 			->register('bitcoin', new Bitcoin())
-			->register('btc-cash', new BtcCash());
+			->register('btc-cash', new BtcCash())
+			->register('dash', new Dash())
+			->register('monero', new Monero());
 	}
 
 	public function register()
