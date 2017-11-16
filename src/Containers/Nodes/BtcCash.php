@@ -10,11 +10,5 @@ namespace Icex\IcexWallet\Containers\Nodes;
 
 class BtcCash extends Bitcoin {
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->node = 'btc-cash';
-		$this->client = $this->getClient();
-	}
-
+    protected $node = 'btc-cash';
 }

@@ -18,20 +18,29 @@ class WalletContainer implements WalletContract {
 	protected $client;
 
     /**
+     * WalletContainer constructor.
+     * @param null $credentials
+     */
+    public function __construct($credentials = null)
+    {
+        if (!$credentials) {
+            $credentials = config('wallet.'.$this->node);
+        }
+
+        $this->client = $this->getClient($credentials);
+    }
+
+    /**
      * Get JSON-RPC client instance
      * for current node
      *
-     * @param null|array $credentials
+     * @param array $credentials
      * @return mixed
      * @internal param string $node_key
      *
      */
-	protected function getClient($credentials = null)
+	protected function getClient(array $credentials)
 	{
-	    if (!$credentials) {
-            $credentials = config('wallet.'.$this->node);
-        }
-
 		return new RPCClient($credentials['user'], $credentials['password'], $credentials['host'], $credentials['port']);
 	}
 
@@ -45,9 +54,14 @@ class WalletContainer implements WalletContract {
         return $this->client->error;
     }
 
-	public function getInfo()
-	{
-		// Implements in Nodes
-	}
+    /**
+     * execute getinfo method
+     *
+     * @return mixed
+     */
+    public function getInfo()
+    {
+        return $this->client->getinfo();
+    }
 
 }

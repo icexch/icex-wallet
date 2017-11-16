@@ -12,15 +12,7 @@ use Icex\IcexWallet\Containers\WalletContainer;
 
 class Monero extends WalletContainer {
 
-	/**
-	 * Bitcoin constructor.
-	 * @param null|array $credentials
-	 */
-	public function __construct($credentials = null)
-	{
-		$this->node = 'monero';
-		$this->client = $this->getClient($credentials);
-	}
+    protected $node = 'monero';
 
 	/**
 	 * execute getinfo method

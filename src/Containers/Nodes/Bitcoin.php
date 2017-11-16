@@ -13,24 +13,5 @@ use Icex\IcexWallet\Containers\WalletContainer;
 
 class Bitcoin extends WalletContainer {
 
-    /**
-     * Bitcoin constructor.
-     * @param null|array $credentials
-     */
-    public function __construct($credentials = null)
-	{
-		$this->node = 'bitcoin';
-		$this->client = $this->getClient($credentials);
-	}
-
-    /**
-     * execute getinfo method
-     *
-     * @return mixed
-     */
-    public function getInfo()
-	{
-		return $this->client->getinfo();
-	}
-
+    protected $node = 'bitcoin';
 }
