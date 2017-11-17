@@ -9,6 +9,7 @@
 namespace Icex\IcexWallet\Http\Controllers;
 
 use Icex\IcexWallet\Registry\WalletRegistry;
+use Illuminate\Http\Request;
 
 class NodeController extends BaseController
 {
@@ -30,9 +31,10 @@ class NodeController extends BaseController
      *
      * @param string $node
      * @param string $method
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function executeMethod($node, $method)
+    public function executeMethod($node, $method, Request $request)
     {
         $node_wallet = $this->wallet->get($node);
 
@@ -41,13 +43,12 @@ class NodeController extends BaseController
         }
 
         $method = $this->config['methods'][$method];
+        $response = $node_wallet->$method($request->input());
 
-        $node_wallet_info = $node_wallet->$method();
-
-        if (!$node_wallet_info) {
+        if ($response === false) {
             return $this->responseJson(['error' => $node_wallet->getError()], $node);
         }
 
-        return $this->responseJson($node_wallet_info, $node);
+        return $this->responseJson($response, $node);
     }
 }
