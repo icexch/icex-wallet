@@ -1,4 +1,4 @@
 /vendor/
-/src/Config/wallet.php
+/src/Config/wallet.example.php
 .idea
 composer.lock

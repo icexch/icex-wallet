@@ -24,7 +24,7 @@ class WalletContainer implements WalletContract {
     public function __construct($credentials = null)
     {
         if (!$credentials) {
-            $credentials = config('wallet.'.$this->node);
+            $credentials = config('wallet.nodes.'.$this->node);
         }
 
         $this->client = $this->getClient($credentials);

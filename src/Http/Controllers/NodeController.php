@@ -13,6 +13,7 @@ use Icex\IcexWallet\Registry\WalletRegistry;
 class NodeController extends BaseController
 {
     protected $wallet;
+    protected $config;
 
     /**
      * NodesController constructor.
@@ -21,19 +22,27 @@ class NodeController extends BaseController
     public function __construct(WalletRegistry $wallet)
     {
         $this->wallet = $wallet;
+        $this->config = config('wallet') ?? require_once __DIR__ . '/../../Config/wallet.php';
     }
 
     /**
-     * execute method getinfo for node
+     * execute node method
      *
      * @param string $node
+     * @param string $method
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getInfo($node)
+    public function executeMethod($node, $method)
     {
         $node_wallet = $this->wallet->get($node);
 
-        $node_wallet_info = $node_wallet->getInfo();
+        if (!isset($this->config['methods'][$method])) {
+            return $this->responseJson(['error' => "unavailable method {$method}"], $node);
+        }
+
+        $method = $this->config['methods'][$method];
+
+        $node_wallet_info = $node_wallet->$method();
 
         if (!$node_wallet_info) {
             return $this->responseJson(['error' => $node_wallet->getError()], $node);
