@@ -26,19 +26,19 @@ class NodesTest extends TestCase
     // test key - for on or off testing node
     private $credentials = [
         'bitcoin' => [
-            'host' => '',
-            'port' => '',
-            'user' => '',
-            'password' => '',
-            'test' => false,
+            'host' => '192.168.121.2',
+            'port' => '8332',
+            'user' => 'icexwlbitcoin',
+            'password' => 'wnhrELWXQZRh5NPSjbprJFeJFE7ZkT',
+            'test' => true,
         ],
 
         'btc-cash' => [
-            'host' => '',
-            'port' => '',
-            'user' => '',
-            'password' => '',
-            'test' => false
+            'host' => '192.168.121.10',
+            'port' => '8332',
+            'user' => 'bitcoin',
+            'password' => 'password',
+            'test' => true
         ],
 
         'dash' => [
@@ -61,12 +61,30 @@ class NodesTest extends TestCase
     /**
      * checking rpc server response
      *
-     * @param $info
+     * @param $response
      */
-    private function assertRpcResponseSuccess($info)
+    private function assertRpcResponseSuccess($response)
     {
-        $this->assertNotFalse($info);
-        $this->assertEmpty($info['errors']);
+        $this->assertNotFalse($response);
+        if (is_array($response) && isset($response['errors'])) {
+            if ($response['errors']) {
+                $this->fail('error');
+            }
+        }
+    }
+
+    public function testNodesGetBlockChainInfo()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->getBlockChainInfo();
+
+            $this->assertRpcResponseSuccess($response);
+        }
     }
 
     public function testNodesGetInfo()
@@ -77,10 +95,79 @@ class NodesTest extends TestCase
             }
             $node = new $this->class_names[$node_name]($credentials);
 
-            // if rpc client have error this method will return false
-            $info = $node->getInfo();
+            $response = $node->getInfo();
 
-            $this->assertRpcResponseSuccess($info);
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesGetNetworkInfo()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->getNetworkInfo();
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesGetConnectionCount()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->getConnectionCount();
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesGetDifficulty()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->getDifficulty();
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesGetMiningInfo()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->getMiningInfo();
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesGetPeerInfo()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->getPeerInfo();
+
+            $this->assertRpcResponseSuccess($response);
         }
     }
 }
