@@ -24,4 +24,15 @@ class Monero extends WalletRpcContainer {
 		return $this->client->get_info();
 	}
 
+    /**
+     * Returns a new address for receiving payments
+     *
+     * @param $params
+     * @return mixed
+     */
+    public function newAddress($params)
+    {
+        // TODO implement new addres method for monero
+        return false;
+    }
 }

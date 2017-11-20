@@ -197,4 +197,15 @@ abstract class WalletRpcContainer extends WalletContainer
     {
         return $this->client->getpeerinfo();
     }
+
+    /**
+     * Returns a new address for receiving payments
+     *
+     * @param $params
+     * @return mixed
+     */
+    public function newAddress($params)
+    {
+        return call_user_func_array([$this->client, 'getnewaddress'], $params);
+    }
 }

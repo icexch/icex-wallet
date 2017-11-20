@@ -36,4 +36,14 @@ class Nem extends WalletHttpContainer {
     {
         return $this->request('node/peer-list/all');
     }
+
+    /**
+     * Returns a new address for receiving payments
+     *
+     * @return bool|array
+     */
+    public function newAddress()
+    {
+        return $this->request('account/generate');
+    }
 }

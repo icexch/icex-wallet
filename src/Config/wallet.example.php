@@ -75,5 +75,6 @@ return [
         'getdifficulty' => 'getDifficulty',
         'getmininginfo' => 'getMiningInfo',
         'getpeerinfo' => 'getPeerInfo',
+        'newaddress' => 'newAddress',
     ],
 ];
