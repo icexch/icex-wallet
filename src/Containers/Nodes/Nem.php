@@ -14,7 +14,7 @@ class Nem extends WalletHttpContainer {
     protected $node = 'nem';
 
     /**
-     * @return null|string
+     * @return bool|array
      */
     public function getInfo()
     {
@@ -22,7 +22,7 @@ class Nem extends WalletHttpContainer {
     }
 
     /**
-     * @return null|string
+     * @return bool|array
      */
     public function getBlockChainInfo()
     {
@@ -30,7 +30,7 @@ class Nem extends WalletHttpContainer {
     }
 
     /**
-     * @return null|string
+     * @return bool|array
      */
     public function getPeerInfo()
     {
