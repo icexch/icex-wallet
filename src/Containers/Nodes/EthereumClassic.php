@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: Warchiefs
- * Date: 15.11.17
- * Time: 12:19
+ * Date: 16.11.17
+ * Time: 19:17
  */
 
 namespace Icex\IcexWallet\Containers\Nodes;
 
 use Icex\IcexWallet\Containers\WalletRpcContainer;
 
-class BtcCash extends WalletRpcContainer {
-    protected $node = 'btc-cash';
+class EthereumClassic extends WalletRpcContainer {
+    protected $node = 'ethereum-classic';
 }

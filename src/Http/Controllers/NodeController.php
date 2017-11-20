@@ -38,11 +38,12 @@ class NodeController extends BaseController
     {
         $node_wallet = $this->wallet->get($node);
 
-        if (!isset($this->config['methods'][$method])) {
+        $method = $this->config['methods'][$method] ?? null;
+
+        if (!$method || !method_exists($node_wallet, $method)) {
             return $this->responseJson(['error' => "unavailable method {$method}"], $node);
         }
 
-        $method = $this->config['methods'][$method];
         $response = $node_wallet->$method($request->input());
 
         if ($response === false) {

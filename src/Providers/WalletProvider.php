@@ -8,11 +8,16 @@
 
 namespace Icex\IcexWallet\Providers;
 
-use Icex\IcexWallet\Containers\Nodes\Bitcoin;
-use Icex\IcexWallet\Containers\Nodes\BtcCash;
-use Icex\IcexWallet\Containers\Nodes\Dash;
-use Icex\IcexWallet\Containers\Nodes\Monero;
-
+use Icex\IcexWallet\Containers\Nodes\{
+    Bitcoin,
+    BtcCash,
+    Dash,
+    Monero,
+    Neo,
+    Nem,
+    Ethereum,
+    EthereumClassic
+};
 use Icex\IcexWallet\Registry\WalletRegistry;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,7 +35,11 @@ class WalletProvider extends ServiceProvider{
 			->register('bitcoin', new Bitcoin())
 			->register('btc-cash', new BtcCash())
 			->register('dash', new Dash())
-			->register('monero', new Monero());
+			->register('monero', new Monero())
+            ->register('neo', new Neo())
+            ->register('nem', new Nem())
+            ->register('ethereum', new Ethereum())
+            ->register('ethereum-classic', new EthereumClassic());
 	}
 
 	public function register()

@@ -36,6 +36,34 @@ return [
             'password' => ''
         ],
 
+        'nem' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
+        'neo' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
+        'ethereum' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
+        'ethereum-classic' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
         // etc
     ],
 

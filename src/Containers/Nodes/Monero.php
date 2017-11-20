@@ -8,9 +8,9 @@
 
 namespace Icex\IcexWallet\Containers\Nodes;
 
-use Icex\IcexWallet\Containers\WalletContainer;
+use Icex\IcexWallet\Containers\WalletRpcContainer;
 
-class Monero extends WalletContainer {
+class Monero extends WalletRpcContainer {
 
     protected $node = 'monero';
 
