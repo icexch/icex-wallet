@@ -41,11 +41,11 @@ return [
 
     'methods' => [
         'getinfo' => 'getInfo',
-        'getblockchaininfo' => 'getBlockChainInfo',
-        'getnetworkinfo' => 'getNetworkInfo',
-        'getconnectioncount' => 'getConnectionCount',
-        'getdifficulty' => 'getDifficulty',
-        'getmininginfo' => 'getMiningInfo',
-        'getpeerinfo' => 'getPeerInfo',
+        //'getblockchaininfo' => 'getBlockChainInfo',
+        //'getnetworkinfo' => 'getNetworkInfo',
+        //'getconnectioncount' => 'getConnectionCount',
+        //'getdifficulty' => 'getDifficulty',
+        //'getmininginfo' => 'getMiningInfo',
+        //'getpeerinfo' => 'getPeerInfo',
     ],
 ];

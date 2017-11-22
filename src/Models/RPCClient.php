@@ -187,7 +187,7 @@ class RPCClient
 			$this->error = $curl_error;
 		}
 
-		if ($this->response['error']) {
+		if (isset($this->response['error']) && $this->response['error']) {
 			// If bitcoind returned an error, put that in $this->error
 			$this->error = $this->response['error']['message'];
 		} elseif ($this->status != 200) {

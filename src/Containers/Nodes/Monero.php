@@ -9,6 +9,7 @@
 namespace Icex\IcexWallet\Containers\Nodes;
 
 use Icex\IcexWallet\Containers\WalletContainer;
+use Icex\IcexWallet\Models\RPCClient;
 
 class Monero extends WalletContainer {
 

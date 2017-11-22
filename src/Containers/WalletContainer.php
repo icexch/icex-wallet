@@ -41,7 +41,13 @@ class WalletContainer implements WalletContract {
      */
 	protected function getClient(array $credentials)
 	{
-		return new RPCClient($credentials['user'], $credentials['password'], $credentials['host'], $credentials['port']);
+		return new RPCClient(
+			$credentials['user'],
+			$credentials['password'],
+			$credentials['host'],
+			$credentials['port'],
+			$credentials['url']
+		);
 	}
 
     /**
