@@ -76,5 +76,9 @@ return [
         'getmininginfo' => 'getMiningInfo',
         'getpeerinfo' => 'getPeerInfo',
         'newaddress' => 'newAddress',
+        'send' => 'send',
+        'getaccount' => 'getAccount',
+        'getaccountaddress' => 'getAccountAddress',
+        'getbalance' => 'getBalance',
     ],
 ];

@@ -38,12 +38,28 @@ class Nem extends WalletHttpContainer {
     }
 
     /**
-     * Returns a new address for receiving payments
-     *
      * @return bool|array
      */
     public function newAddress()
     {
         return $this->request('account/generate');
+    }
+
+    /**
+     * @param array $params
+     * @return array|bool
+     */
+    public function send($params)
+    {
+        return $this->request('transaction/prepare-announce', $params, 'POST');
+    }
+
+    /**
+     * @param array $params
+     * @return array|bool
+     */
+    public function getAccount($params)
+    {
+        return $this->request('account/get', $params);
     }
 }

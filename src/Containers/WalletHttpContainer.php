@@ -47,16 +47,17 @@ abstract class WalletHttpContainer extends WalletContainer
     /**
      * Send request
      *
-     * @param       $method
+     * @param $method
      * @param array $params
      *
-     * @return bool|array
+     * @param string $http_method
+     * @return array|bool
      */
-    public function request($method, array $params = [])
+    public function request($method, array $params = [], $http_method = 'GET')
     {
         $uri = $this->uri_construct($method, $params);
         try {
-            $request = $this->client->request('GET', $uri, [
+            $request = $this->client->request($http_method, $uri, [
                 'http_errors' => false,
             ]);
         } catch (\Exception $e) {

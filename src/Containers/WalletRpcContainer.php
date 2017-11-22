@@ -204,8 +204,44 @@ abstract class WalletRpcContainer extends WalletContainer
      * @param $params
      * @return mixed
      */
-    public function newAddress($params)
+    public function newAddress($params = [])
     {
         return call_user_func_array([$this->client, 'getnewaddress'], $params);
+    }
+
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function send($params)
+    {
+        return call_user_func_array([$this->client, 'move'], $params);
+    }
+
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function getAccount($params)
+    {
+        return call_user_func_array([$this->client, 'getaccount'], $params);
+    }
+
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function getAccountAddress($params)
+    {
+        return call_user_func_array([$this->client, 'getaccountaddress'], $params);
+    }
+
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function getBalance($params)
+    {
+        return call_user_func_array([$this->client, 'getbalance'], $params);
     }
 }
