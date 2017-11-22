@@ -36,16 +36,45 @@ return [
             'password' => ''
         ],
 
+        'nem' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
+        'neo' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
+        'ethereum' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
+        'ethereum-classic' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
         // etc
     ],
 
     'methods' => [
         'getinfo' => 'getInfo',
-        //'getblockchaininfo' => 'getBlockChainInfo',
-        //'getnetworkinfo' => 'getNetworkInfo',
-        //'getconnectioncount' => 'getConnectionCount',
-        //'getdifficulty' => 'getDifficulty',
-        //'getmininginfo' => 'getMiningInfo',
-        //'getpeerinfo' => 'getPeerInfo',
+        'getblockchaininfo' => 'getBlockChainInfo',
+        'getnetworkinfo' => 'getNetworkInfo',
+        'getconnectioncount' => 'getConnectionCount',
+        'getdifficulty' => 'getDifficulty',
+        'getmininginfo' => 'getMiningInfo',
+        'getpeerinfo' => 'getPeerInfo',
+        'newaddress' => 'newAddress',
     ],
 ];

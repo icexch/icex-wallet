@@ -36,6 +36,34 @@ return [
             'password' => ''
         ],
 
+        'nem' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
+        'neo' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
+        'ethereum' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
+        'ethereum-classic' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => ''
+        ],
+
         // etc
     ],
 
@@ -47,5 +75,6 @@ return [
         'getdifficulty' => 'getDifficulty',
         'getmininginfo' => 'getMiningInfo',
         'getpeerinfo' => 'getPeerInfo',
+        'newaddress' => 'newAddress',
     ],
 ];

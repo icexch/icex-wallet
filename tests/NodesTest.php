@@ -6,10 +6,16 @@
  * Time: 16:11
  */
 
-use Icex\IcexWallet\Containers\Nodes\Bitcoin;
-use Icex\IcexWallet\Containers\Nodes\BtcCash;
-use Icex\IcexWallet\Containers\Nodes\Dash;
-use Icex\IcexWallet\Containers\Nodes\Monero;
+use Icex\IcexWallet\Containers\Nodes\{
+    Bitcoin,
+    BtcCash,
+    Dash,
+    Monero,
+    Neo,
+    Nem,
+    Ethereum,
+    EthereumClassic
+};
 use PHPUnit\Framework\TestCase;
 
 
@@ -20,24 +26,28 @@ class NodesTest extends TestCase
         'btc-cash' => BtcCash::class,
         'dash' => Dash::class,
         'monero' => Monero::class,
+        'neo' => Neo::class,
+        'nem' => Nem::class,
+        'ethereum' => Ethereum::class,
+        'ethereum-classic' => EthereumClassic::class,
     ];
 
     // fill your credentials
     // test key - for on or off testing node
     private $credentials = [
         'bitcoin' => [
-            'host' => '192.168.121.2',
-            'port' => '8332',
-            'user' => 'icexwlbitcoin',
-            'password' => 'wnhrELWXQZRh5NPSjbprJFeJFE7ZkT',
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
             'test' => true,
         ],
 
         'btc-cash' => [
-            'host' => '192.168.121.10',
-            'port' => '8332',
-            'user' => 'bitcoin',
-            'password' => 'password',
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
             'test' => true
         ],
 
@@ -50,6 +60,38 @@ class NodesTest extends TestCase
         ],
 
         'monero' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
+            'test' => false,
+        ],
+
+        'nem' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
+            'test' => true,
+        ],
+
+        'neo' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
+            'test' => false,
+        ],
+
+        'ethereum' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
+            'test' => false,
+        ],
+
+        'ethereum-classic' => [
             'host' => '',
             'port' => '',
             'user' => '',

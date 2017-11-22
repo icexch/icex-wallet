@@ -10,8 +10,9 @@ namespace Icex\IcexWallet\Containers\Nodes;
 
 use Icex\IcexWallet\Containers\WalletContainer;
 use Icex\IcexWallet\Models\RPCClient;
+use Icex\IcexWallet\Containers\WalletRpcContainer;
 
-class Monero extends WalletContainer {
+class Monero extends WalletRpcContainer {
 
     protected $node = 'monero';
 
@@ -25,4 +26,15 @@ class Monero extends WalletContainer {
 		return $this->client->get_info();
 	}
 
+    /**
+     * Returns a new address for receiving payments
+     *
+     * @param $params
+     * @return mixed
+     */
+    public function newAddress($params)
+    {
+        // TODO implement new addres method for monero
+        return false;
+    }
 }
