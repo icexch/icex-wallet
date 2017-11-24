@@ -17,7 +17,7 @@ class NodeController extends BaseController
     protected $config;
 
     /**
-     * NodesController constructor.
+     * NodeController constructor.
      * @param WalletRegistry $wallet
      */
     public function __construct(WalletRegistry $wallet)
@@ -38,10 +38,10 @@ class NodeController extends BaseController
     {
         $node_wallet = $this->wallet->get($node);
 
-        $method = $this->config['methods'][$method] ?? null;
+        $method_name = $this->config['methods'][$method] ?? null;
 
-        if (!$method || !method_exists($node_wallet, $method)) {
-            return $this->responseJson(['error' => "unavailable method {$method}"], $node);
+        if (!$method_name || !method_exists($node_wallet, $method_name)) {
+            return $this->responseJson(['error' => "Unavailable method {$method}"], $node);
         }
 
         $response = $node_wallet->$method($request->input());

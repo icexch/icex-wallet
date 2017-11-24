@@ -32,7 +32,7 @@ class Monero extends WalletRpcContainer {
      * @param $params
      * @return mixed
      */
-    public function newAddress($params)
+    public function newAddress($params = [])
     {
         // TODO implement new addres method for monero
         return false;
