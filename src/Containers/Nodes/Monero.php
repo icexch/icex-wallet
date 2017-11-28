@@ -26,15 +26,33 @@ class Monero extends WalletRpcContainer {
 		return $this->client->get_info();
 	}
 
-    /**
-     * Returns a new address for receiving payments
-     *
-     * @param $params
-     * @return mixed
-     */
-    public function newAddress($params = [])
-    {
-        // TODO implement new addres method for monero
-        return false;
-    }
+	public function getBlockChainInfo()
+	{
+		return $this->client->getblockcount();
+	}
+
+	public function getConnectionCount()
+	{
+		return $this->client->get_connections();
+	}
+
+	public function createAccount($params = [ ])
+	{
+		return call_user_func_array([$this->client, 'create_wallet'], $params);
+	}
+
+	public function send($params = [ ])
+	{
+		return call_user_func_array([$this->client, 'transfer'], $params);
+	}
+
+	public function getAccountAddress($params)
+	{
+		return call_user_func_array([$this->client, 'getaddress'], $params);
+	}
+
+	public function getBalance($params)
+	{
+		return call_user_func_array([$this->client, 'getbalance'], $params);
+	}
 }

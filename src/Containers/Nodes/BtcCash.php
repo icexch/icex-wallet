@@ -8,8 +8,6 @@
 
 namespace Icex\IcexWallet\Containers\Nodes;
 
-use Icex\IcexWallet\Containers\WalletRpcContainer;
-
-class BtcCash extends WalletRpcContainer {
+class BtcCash extends Bitcoin {
     protected $node = 'btc-cash';
 }

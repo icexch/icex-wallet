@@ -8,8 +8,6 @@
 
 namespace Icex\IcexWallet\Containers\Nodes;
 
-use Icex\IcexWallet\Containers\WalletRpcContainer;
-
-class EthereumClassic extends WalletRpcContainer {
+class EthereumClassic extends Ethereum {
     protected $node = 'ethereum-classic';
 }
