@@ -20,6 +20,7 @@
         "php" : ">=7.0",
         "laravel/framework": ">=5.5",
         "phpunit/phpunit": "^6.4",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "achse/geth-jsonrpc-php-client": "^1.0"
     }
 }

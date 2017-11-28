@@ -32,4 +32,9 @@ class Neo extends WalletRpcContainer {
 	{
 		return call_user_func_array([$this->client, 'getbalance'], $params);
 	}
+
+	public function coinHistory()
+	{
+		return call_user_func_array([$this->client, 'getrawtransaction'], []);
+	}
 }

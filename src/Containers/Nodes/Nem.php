@@ -62,4 +62,12 @@ class Nem extends WalletHttpContainer {
     {
         return $this->request('account/get', $params);
     }
+
+	/**
+	 * @return array|bool
+	 */
+    public function coinHistory()
+    {
+    	return $this->request('account/transfers/all', []);
+    }
 }

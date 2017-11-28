@@ -244,4 +244,11 @@ abstract class WalletRpcContainer extends WalletContainer
     {
         return call_user_func_array([$this->client, 'getbalance'], $params);
     }
+
+	/**
+	 * @return mixed
+	 */
+    public function coinHistory() {
+    	return call_user_func_array([$this->client, 'listtransations'], []);
+    }
 }

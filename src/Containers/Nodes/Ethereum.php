@@ -9,42 +9,53 @@
 namespace Icex\IcexWallet\Containers\Nodes;
 
 use Icex\IcexWallet\Containers\WalletRpcContainer;
+use Icex\IcexWallet\Models\EthereumClient;
 
 class Ethereum extends WalletRpcContainer {
     protected $node = 'ethereum';
 
+	public function getClient(array $credentials)
+	{
+		return (new EthereumClient($credentials))->client;
+	}
+
 	public function getInfo()
 	{
-		return call_user_func_array([$this->client, 'eth_protocolVersion'], []);
+		return $this->client->callMethod('eth_protocolVersion', []);
 	}
 
 	public function getBlockChainInfo()
 	{
-		return call_user_func_array([$this->client, 'eth_blockNumber'], []);
+		return $this->client->callMethod('eth_blockNumber', []);
 	}
 
 	public function getMiningInfo()
 	{
-		return call_user_func_array([$this->client, 'eth_mining'], []);
+		return $this->client->callMethod('eth_mining', []);
 	}
 
 	public function getPeerInfo()
 	{
-		return call_user_func_array([$this->client, 'net_peerCount'], []);
+		return $this->client->callMethod('net_peerCount', []);
 	}
 
 	public function createAccount($params = [ ])
 	{
-		return call_user_func_array([$this->client, 'personal_newAccount'], $params);
+		return $this->client->callMethod('personal_newAccount', $params);
 	}
 
 	public function send($params = [ ])
 	{
-		return call_user_func_array([$this->client, 'eth_sendTransaction'], $params);
+		return $this->client->callMethod('eth_sendTransaction', $params);
 	}
 
 	public function getBalance($params)
 	{
-		return call_user_func_array([$this->client, 'eth_getBalance'], $params);
+		return $this->client->callMethod('eth_getBalance', $params);
+	}
+
+	public function coinHistory()
+	{
+		return $this->client->callMethod('eth_getFilterChanges', []);
 	}
 }

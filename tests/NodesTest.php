@@ -40,7 +40,7 @@ class NodesTest extends TestCase
             'port' => '',
             'user' => '',
             'password' => '',
-            'test' => true,
+            'test' => false,
         ],
 
         'btc-cash' => [
@@ -48,7 +48,7 @@ class NodesTest extends TestCase
             'port' => '',
             'user' => '',
             'password' => '',
-            'test' => true
+            'test' => false
         ],
 
         'dash' => [
@@ -72,7 +72,7 @@ class NodesTest extends TestCase
             'port' => '',
             'user' => '',
             'password' => '',
-            'test' => true,
+            'test' => false,
         ],
 
         'neo' => [
@@ -84,11 +84,11 @@ class NodesTest extends TestCase
         ],
 
         'ethereum' => [
-            'host' => '',
-            'port' => '',
+            'host' => '192.168.121.8',
+            'port' => '8545',
             'user' => '',
             'password' => '',
-            'test' => false,
+            'test' => true,
         ],
 
         'ethereum-classic' => [
