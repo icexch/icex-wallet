@@ -44,7 +44,7 @@ class NodeController extends BaseController
             return $this->responseJson(['error' => "Unavailable method {$method}"], $node);
         }
 
-        $response = $node_wallet->$method($request->input());
+        $response = $node_wallet->$method_name($request->input());
 
         if ($response === false) {
             return $this->responseJson(['error' => $node_wallet->getError()], $node);

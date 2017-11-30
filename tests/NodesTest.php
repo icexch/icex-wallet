@@ -88,7 +88,7 @@ class NodesTest extends TestCase
             'port' => '8545',
             'user' => '',
             'password' => '',
-            'test' => true,
+            'test' => false,
         ],
 
         'ethereum-classic' => [
@@ -208,6 +208,106 @@ class NodesTest extends TestCase
             $node = new $this->class_names[$node_name]($credentials);
 
             $response = $node->getPeerInfo();
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesCreateAccount()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->createAccount();
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesSend()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->send(['test_account', 'test_account1', 1]);
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesGetAccount()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $new_address = $node->createAccount();
+
+            $response = $node->getAccount([$new_address]);
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesGetAccountAddress()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->getAccountAddress(['test_account']);
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesGetBalance()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->getBalance();
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesCoinHistory()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->coinHistory();
+
+            $this->assertRpcResponseSuccess($response);
+        }
+    }
+
+    public function testNodesSign()
+    {
+        foreach ($this->credentials as $node_name => $credentials) {
+            if (!$credentials['test']) {
+                continue;
+            }
+            $node = new $this->class_names[$node_name]($credentials);
+
+            $response = $node->sign(['hexstring']);
 
             $this->assertRpcResponseSuccess($response);
         }

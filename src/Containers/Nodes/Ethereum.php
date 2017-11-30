@@ -54,8 +54,13 @@ class Ethereum extends WalletRpcContainer {
 		return $this->client->callMethod('eth_getBalance', $params);
 	}
 
-	public function coinHistory()
+	public function coinHistory($params = [])
 	{
-		return $this->client->callMethod('eth_getFilterChanges', []);
+		return $this->client->callMethod('eth_getFilterChanges', $params);
 	}
+
+    public function sign($params = [])
+    {
+        return $this->client->callMethod('eth_sendRawTransaction', $params);
+    }
 }
