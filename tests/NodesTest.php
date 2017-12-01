@@ -88,7 +88,7 @@ class NodesTest extends TestCase
             'port' => '8545',
             'user' => '',
             'password' => '',
-            'test' => true,
+            'test' => false,
         ],
 
         'ethereum-classic' => [
@@ -212,4 +212,15 @@ class NodesTest extends TestCase
             $this->assertRpcResponseSuccess($response);
         }
     }
+
+	public function testCrossRate()
+	{
+		$carbon = new \Carbon\Carbon();
+		$guzzle = new \GuzzleHttp\Client();
+		$icex = new \Icex\IcexWallet\Models\IcexAPIClient($guzzle);
+
+		$cross_rate = (new \Icex\IcexWallet\Containers\ConversionContainer($carbon, $icex))->cross_rate('BTC', 'EUR');
+
+		$this->assertTrue($cross_rate);
+	}
 }
