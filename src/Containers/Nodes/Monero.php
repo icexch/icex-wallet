@@ -16,6 +16,21 @@ class Monero extends WalletRpcContainer {
 
     protected $node = 'monero';
 
+
+    /**
+     * Get JSON-RPC client instance
+     * for current node
+     *
+     * @param array $credentials
+     * @return mixed
+     * @internal param string $node_key
+     *
+     */
+    protected function getClient(array $credentials)
+    {
+        return new RPCClient($credentials['user'], $credentials['password'], $credentials['host'], $credentials['port'], 'json_rpc');
+    }
+
 	/**
 	 * execute getinfo method
 	 *
@@ -56,8 +71,19 @@ class Monero extends WalletRpcContainer {
 		return call_user_func_array([$this->client, 'getbalance'], $params);
 	}
 
-	public function coinHistory()
-	{
-		return call_user_func_array([$this->client, 'get_transfers'], []);
-	}
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function coinHistory($params = []) {
+        return call_user_func_array([$this->client, 'get_transfers'], $params);
+    }
+
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function sign($params = []) {
+        return call_user_func_array([$this->client, 'sign'], $params);
+    }
 }

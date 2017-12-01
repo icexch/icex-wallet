@@ -75,10 +75,12 @@ return [
         'getdifficulty' => 'getDifficulty',
         'getmininginfo' => 'getMiningInfo',
         'getpeerinfo' => 'getPeerInfo',
-        'newaddress' => 'newAddress',
+        'newaddress' => 'createAccount',
         'send' => 'send',
         'getaccount' => 'getAccount',
         'getaccountaddress' => 'getAccountAddress',
         'getbalance' => 'getBalance',
+        'listtransactions' => 'coinHistory',
+        'sendrawtransaction' => 'sign',
     ],
 ];

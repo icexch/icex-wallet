@@ -32,6 +32,22 @@ class Nem extends WalletHttpContainer {
     /**
      * @return bool|array
      */
+    public function getNetworkInfo()
+    {
+        return $this->request('debug/time-synchronization');
+    }
+
+    /**
+     * @return bool|array
+     */
+    public function getConnectionCount()
+    {
+        return $this->request('debug/connections/incoming');
+    }
+
+    /**
+     * @return bool|array
+     */
     public function getPeerInfo()
     {
         return $this->request('node/peer-list/all');
@@ -40,7 +56,7 @@ class Nem extends WalletHttpContainer {
     /**
      * @return bool|array
      */
-    public function newAddress()
+    public function createAccount()
     {
         return $this->request('account/generate');
     }
@@ -63,11 +79,21 @@ class Nem extends WalletHttpContainer {
         return $this->request('account/get', $params);
     }
 
-	/**
-	 * @return array|bool
-	 */
-    public function coinHistory()
+    /**
+     * @param array $params
+     * @return array|bool
+     */
+    public function coinHistory($params = [])
     {
-    	return $this->request('account/transfers/all', []);
+    	return $this->request('account/transfers/all', $params);
+    }
+
+    /**
+     * @param array $params
+     * @return array|bool
+     */
+    public function sign($params = [])
+    {
+        return $this->request('transaction/announce', $params, 'POST');
     }
 }

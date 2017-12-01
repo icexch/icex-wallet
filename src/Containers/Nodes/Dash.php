@@ -12,4 +12,12 @@ use Icex\IcexWallet\Containers\WalletRpcContainer;
 
 class Dash extends WalletRpcContainer {
     protected $node = 'dash';
+
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function sign($params = []) {
+        return call_user_func_array([$this->client, 'signmessage'], $params);
+    }
 }

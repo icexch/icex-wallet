@@ -245,10 +245,19 @@ abstract class WalletRpcContainer extends WalletContainer
         return call_user_func_array([$this->client, 'getbalance'], $params);
     }
 
-	/**
-	 * @return mixed
-	 */
-    public function coinHistory() {
-    	return call_user_func_array([$this->client, 'listtransations'], []);
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function coinHistory($params = []) {
+    	return call_user_func_array([$this->client, 'listtransactions'], $params);
+    }
+
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function sign($params = []) {
+        return call_user_func_array([$this->client, 'sendrawtransaction'], $params);
     }
 }
