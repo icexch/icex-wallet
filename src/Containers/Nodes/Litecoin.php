@@ -1,16 +1,15 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Wariefs
- * Date: 14.11.17
- * Time: 20:08
+ * User: Warchiefs
+ * Date: 15.11.17
+ * Time: 12:19
  */
 
 namespace Icex\IcexWallet\Containers\Nodes;
 
 use Icex\IcexWallet\Containers\WalletRpcContainer;
 
-class Bitcoin extends WalletRpcContainer {
-
-    protected $node = 'bitcoin';
+class Litecoin extends WalletRpcContainer {
+    protected $node = 'litecoin';
 }

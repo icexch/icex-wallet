@@ -27,4 +27,9 @@ abstract class WalletContainer implements WalletContract {
         }
         $this->credentials = $credentials;
     }
+
+    public function client()
+    {
+        return $this->client;
+    }
 }

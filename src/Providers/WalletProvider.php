@@ -12,6 +12,7 @@ use Icex\IcexWallet\Containers\Nodes\{
     Bitcoin,
     BtcCash,
     Dash,
+    Litecoin,
     Monero,
     Neo,
     Nem,
@@ -35,6 +36,7 @@ class WalletProvider extends ServiceProvider{
 			->register('bitcoin', new Bitcoin())
 			->register('btc-cash', new BtcCash())
 			->register('dash', new Dash())
+			->register('litecoin', new Litecoin())
 			->register('monero', new Monero())
             ->register('neo', new Neo())
             ->register('nem', new Nem())
