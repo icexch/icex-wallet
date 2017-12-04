@@ -130,7 +130,7 @@ abstract class WalletRpcContainer extends WalletContainer
      *
      * @param $wallet
      *
-     * @return bool|mixed
+     * @return float
      */
     public function getWalletBalance($wallet) {
 
@@ -138,7 +138,7 @@ abstract class WalletRpcContainer extends WalletContainer
             return false;
         }
 
-        $account = $this->getAccount($wallet_data['account']);
+        $account = $this->getAccount($wallet);
 
         if(!$account) {
             return false;
