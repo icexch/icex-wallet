@@ -9,15 +9,7 @@
 namespace Icex\IcexWallet\Providers;
 
 use Icex\IcexWallet\Containers\Nodes\{
-    Bitcoin,
-    BtcCash,
-    Dash,
-    Litecoin,
-    Monero,
-    Neo,
-    Nem,
-    Ethereum,
-    EthereumClassic
+    Bitcoin, BtcCash, Dash, Litecoin, Monero, Neo, Nem, Ethereum, EthereumClassic
 };
 use Icex\IcexWallet\Registry\WalletRegistry;
 use Illuminate\Support\ServiceProvider;

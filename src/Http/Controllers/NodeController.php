@@ -52,29 +52,4 @@ class NodeController extends BaseController
 
         return $this->responseJson($response, $node);
     }
-
-    /**
-     * execute node method
-     *
-     * @param string $node
-     * @param string $method
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function executeMethodManual($node, $method, Request $request)
-    {
-        $node_wallet = $this->wallet->get($node);
-
-        if (empty($request->input())) {
-            $response = $node_wallet->client()->$method();
-        } else {
-            $response = call_user_func_array([$node_wallet->client(), $method], $request->input());
-        }
-
-        if ($response === false) {
-            return $this->responseJson(['error' => $node_wallet->getError()], $node);
-        }
-
-        return $this->responseJson($response, $node);
-    }
 }

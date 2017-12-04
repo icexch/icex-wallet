@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Warchiefs
- * Date: 15.11.17
- * Time: 12:19
+ * Date: 16.11.17
+ * Time: 19:16
  */
 
 namespace Icex\IcexWallet\Containers\Nodes;

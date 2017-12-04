@@ -11,6 +11,5 @@ namespace Icex\IcexWallet\Containers\Nodes;
 use Icex\IcexWallet\Containers\WalletRpcContainer;
 
 class Bitcoin extends WalletRpcContainer {
-
     protected $node = 'bitcoin';
 }

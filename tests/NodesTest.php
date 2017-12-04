@@ -10,6 +10,7 @@ use Icex\IcexWallet\Containers\Nodes\{
     Bitcoin,
     BtcCash,
     Dash,
+    Litecoin,
     Monero,
     Neo,
     Nem,
@@ -25,6 +26,7 @@ class NodesTest extends TestCase
         'bitcoin' => Bitcoin::class,
         'btc-cash' => BtcCash::class,
         'dash' => Dash::class,
+        'litecoin' => Litecoin::class,
         'monero' => Monero::class,
         'neo' => Neo::class,
         'nem' => Nem::class,
@@ -36,19 +38,19 @@ class NodesTest extends TestCase
     // test key - for on or off testing node
     private $credentials = [
         'bitcoin' => [
-            'host' => '192.168.121.2',
-            'port' => '8332',
-            'user' => 'icexwlbitcoin',
-            'password' => 'wnhrELWXQZRh5NPSjbprJFeJFE7ZkT',
-            'test' => true,
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
+            'test' => false,
         ],
 
         'btc-cash' => [
-            'host' => '192.168.121.10',
-            'port' => '8332',
-            'user' => 'bitcoin',
-            'password' => 'password',
-            'test' => true
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
+            'test' => false
         ],
 
         'dash' => [
