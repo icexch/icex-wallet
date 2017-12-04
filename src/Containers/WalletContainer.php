@@ -13,7 +13,7 @@ use Icex\IcexWallet\Contracts\WalletContract;
 abstract class WalletContainer implements WalletContract {
 
 	protected $node;
-	protected $client;
+	public $client;
 	protected $credentials;
 
     /**
@@ -27,4 +27,26 @@ abstract class WalletContainer implements WalletContract {
         }
         $this->credentials = $credentials;
     }
+
+    public function getAccounts()
+    {
+	    // TODO: Implement getAccounts() method.
+    }
+
+	public function getAccount($wallet)
+	{
+		// TODO: Implement getAccount() method.
+	}
+
+	public function createWallet($account)
+	{
+		// TODO: Implement createWallet() method.
+	}
+
+    public function getWallets($account)
+    {
+	    // TODO: Implement getWallets() method.
+    }
+
+
 }

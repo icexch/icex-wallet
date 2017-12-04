@@ -11,10 +11,62 @@ namespace Icex\IcexWallet\Contracts;
 interface WalletContract {
 
 	/**
-	 * Get info about node
+	 * Check node connection
 	 *
 	 * @return mixed
 	 */
-	public function getInfo();
+	public function checkNode();
+
+	/**
+	 * Create new wallet for account
+	 *
+	 * @param $account
+	 *
+	 * @return mixed
+	 */
+	public function createWallet($account);
+
+	/**
+	 * Get all accounts for node
+	 *
+	 * @return mixed
+	 */
+	public function getAccounts();
+
+	/**
+	 * Get account's wallets
+	 *
+	 * @param $account
+	 *
+	 * @return mixed
+	 */
+	public function getWallets($account);
+
+	/**
+	 * Get account by wallet address
+	 *
+	 * @param $wallet
+	 *
+	 * @return mixed
+	 */
+	public function getAccount($wallet);
+
+	/**
+	 * Get total account balance
+	 *
+	 * @param $account
+	 *
+	 * @return mixed
+	 */
+	public function getAccountBalance($account);
+
+	/**
+	 * Get wallet balance
+	 *
+	 * @param $wallet
+	 *
+	 * @return mixed
+	 */
+	public function getWalletBalance($wallet);
 
 }

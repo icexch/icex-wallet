@@ -36,19 +36,19 @@ class NodesTest extends TestCase
     // test key - for on or off testing node
     private $credentials = [
         'bitcoin' => [
-            'host' => '',
-            'port' => '',
-            'user' => '',
-            'password' => '',
-            'test' => false,
+            'host' => '192.168.121.2',
+            'port' => '8332',
+            'user' => 'icexwlbitcoin',
+            'password' => 'wnhrELWXQZRh5NPSjbprJFeJFE7ZkT',
+            'test' => true,
         ],
 
         'btc-cash' => [
-            'host' => '',
-            'port' => '',
-            'user' => '',
-            'password' => '',
-            'test' => false
+            'host' => '192.168.121.10',
+            'port' => '8332',
+            'user' => 'bitcoin',
+            'password' => 'password',
+            'test' => true
         ],
 
         'dash' => [
@@ -114,7 +114,7 @@ class NodesTest extends TestCase
             }
         }
     }
-
+	/*
     public function testNodesGetBlockChainInfo()
     {
         foreach ($this->credentials as $node_name => $credentials) {
@@ -213,6 +213,107 @@ class NodesTest extends TestCase
         }
     }
 
+	public function testNodesCreateAccount()
+	{
+		foreach ($this->credentials as $node_name => $credentials) {
+			if (!$credentials['test']) {
+				continue;
+			}
+			$node = new $this->class_names[$node_name]($credentials);
+
+			$response = $node->createAccount();
+
+			$this->assertRpcResponseSuccess($response);
+		}
+	}
+
+	public function testNodesSend()
+	{
+		foreach ($this->credentials as $node_name => $credentials) {
+			if (!$credentials['test']) {
+				continue;
+			}
+			$node = new $this->class_names[$node_name]($credentials);
+
+			$response = $node->send(['test_account', 'test_account1', 1]);
+
+			$this->assertRpcResponseSuccess($response);
+		}
+	}
+
+	public function testNodesGetAccount()
+	{
+		foreach ($this->credentials as $node_name => $credentials) {
+			if (!$credentials['test']) {
+				continue;
+			}
+			$node = new $this->class_names[$node_name]($credentials);
+
+			$new_address = $node->createAccount();
+
+			$response = $node->getAccount([$new_address]);
+
+			$this->assertRpcResponseSuccess($response);
+		}
+	}
+	*/
+	public function testNodesGetAccountAddress()
+	{
+		foreach ($this->credentials as $node_name => $credentials) {
+			if (!$credentials['test']) {
+				continue;
+			}
+			$node = new $this->class_names[$node_name]($credentials);
+
+			$response = $node->getWalletBalance('1DdSXmfRMFQzYeeaLGntwdhJ48tbTvVh16');
+
+
+			$this->assertRpcResponseSuccess($response);
+		}
+	}
+	/*
+	public function testNodesGetBalance()
+	{
+		foreach ($this->credentials as $node_name => $credentials) {
+			if (!$credentials['test']) {
+				continue;
+			}
+			$node = new $this->class_names[$node_name]($credentials);
+
+			$response = $node->getBalance();
+
+			$this->assertRpcResponseSuccess($response);
+		}
+	}
+
+	public function testNodesCoinHistory()
+	{
+		foreach ($this->credentials as $node_name => $credentials) {
+			if (!$credentials['test']) {
+				continue;
+			}
+			$node = new $this->class_names[$node_name]($credentials);
+
+			$response = $node->coinHistory();
+
+			$this->assertRpcResponseSuccess($response);
+		}
+	}
+
+	public function testNodesSign()
+	{
+		foreach ($this->credentials as $node_name => $credentials) {
+			if (!$credentials['test']) {
+				continue;
+			}
+			$node = new $this->class_names[$node_name]($credentials);
+
+			$response = $node->sign(['hexstring']);
+
+			$this->assertRpcResponseSuccess($response);
+		}
+	}
+
 	public function testCrossRate()
 	{
 		$carbon = new \Carbon\Carbon();
@@ -222,5 +323,5 @@ class NodesTest extends TestCase
 		$cross_rate = (new \Icex\IcexWallet\Containers\ConversionContainer($carbon, $icex))->cross_rate('BTC', 'EUR');
 
 		$this->assertTrue($cross_rate);
-	}
+	}*/
 }
