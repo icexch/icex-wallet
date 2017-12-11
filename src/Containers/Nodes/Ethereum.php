@@ -19,48 +19,54 @@ class Ethereum extends WalletRpcContainer {
 		return (new EthereumClient($credentials))->client;
 	}
 
-	public function getInfo()
+	public function checkNode()
 	{
-		return $this->client->callMethod('eth_protocolVersion', []);
+		return $this->client->callMethod('eth_syncing', []);
 	}
 
-	public function getBlockChainInfo()
+	public function createWallet($account)
 	{
-		return $this->client->callMethod('eth_blockNumber', []);
+		return $this->client->callMethod('personal_newAccount', [$account]);
 	}
 
-	public function getMiningInfo()
+	public function getWallets($account)
 	{
-		return $this->client->callMethod('eth_mining', []);
+		return false;
 	}
 
-	public function getPeerInfo()
+	public function getAccounts()
 	{
-		return $this->client->callMethod('net_peerCount', []);
+		return $this->client->callMethod('personal_listAccounts', []);
 	}
 
-	public function createAccount($params = [ ])
+	public function getAccount($wallet)
 	{
-		return $this->client->callMethod('personal_newAccount', $params);
+		return false;
 	}
 
-	public function send($params = [ ])
+	public function getAccountBalance($account = null)
 	{
-		return $this->client->callMethod('eth_sendTransaction', $params);
+		return false;
 	}
 
-	public function getBalance($params)
+	public function getWalletBalance($wallet)
 	{
-		return $this->client->callMethod('eth_getBalance', $params);
+		return $this->client->callMethod('eth_getBalance', [$wallet]);
 	}
 
-	public function coinHistory($params = [])
+	public function sendToAccount($from_account, $to_account, $amount)
 	{
-		return $this->client->callMethod('eth_getFilterChanges', $params);
+		return false;
 	}
 
-    public function sign($params = [])
-    {
-        return $this->client->callMethod('eth_sendRawTransaction', $params);
-    }
+	public function sendToWallet($from_wallet, $to_wallet, $amount)
+	{
+		return $this->client->callMethod('eth_sendTransaction', [
+			'from' => $from_wallet,
+			'to' => $to_wallet,
+			'value' => $amount,
+			'gas' => 21000,
+			'gasPrice' => 60
+		]);
+	}
 }
