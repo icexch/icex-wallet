@@ -10,4 +10,9 @@ namespace Icex\IcexWallet\Containers\Nodes;
 
 class EthereumClassic extends Ethereum {
     protected $node = 'ethereum-classic';
+
+    protected function getBlocksCount()
+    {
+        return $this->http_request('https://etcchain.com/gethProxy/eth_blockNumber');
+    }
 }

@@ -13,6 +13,39 @@ use Icex\IcexWallet\Containers\WalletHttpContainer;
 class Nem extends WalletHttpContainer {
     protected $node = 'nem';
 
+    protected function getBlocksCount()
+    {
+        $response = $this->http_request('http://103.11.64.51:7890/chain/last-block');
+        $response = json_decode($response);
+
+        return $response->height;
+    }
+
+    public function checkNode()
+    {
+        if (!($info = $this->request('chain/height'))) {
+            return [
+                'result' => false,
+                'sync' => false,
+            ];
+        }
+
+        $selfBlockCount = $info['height'];
+        $blockCount = $this->getBlocksCount();
+
+        if ($blockCount > $selfBlockCount) {
+            return [
+                'result' => true,
+                'sync' => false,
+            ];
+        }
+
+        return [
+            'result' => true,
+            'sync' => true,
+        ];
+    }
+
     /**
      * @return bool|array
      */

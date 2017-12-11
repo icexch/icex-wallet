@@ -31,6 +31,39 @@ class Monero extends WalletRpcContainer {
         return new RPCClient($credentials['user'], $credentials['password'], $credentials['host'], $credentials['port'], 'json_rpc');
     }
 
+    protected function getBlocksCount()
+    {
+        $response = $this->http_request('https://moneroblocks.info/api/get_stats');
+        $response = json_decode($response);
+
+        return $response->height;
+    }
+
+    public function checkNode()
+    {
+        if (!($info = $this->client->getblockcount())) {
+            return [
+                'result' => false,
+                'sync' => false,
+            ];
+        }
+
+        $selfBlockCount = $info['count'];
+        $blockCount = $this->getBlocksCount();
+
+        if ($blockCount > $selfBlockCount) {
+            return [
+                'result' => true,
+                'sync' => false,
+            ];
+        }
+
+        return [
+            'result' => true,
+            'sync' => true,
+        ];
+    }
+
 	/**
 	 * execute getinfo method
 	 *
