@@ -38,34 +38,42 @@ class NodesTest extends TestCase
     // test key - for on or off testing node
     private $credentials = [
         'bitcoin' => [
-            'host' => '',
-            'port' => '',
-            'user' => '',
-            'password' => '',
-            'test' => false,
+            'host' => '192.168.121.2',
+            'port' => '8332',
+            'user' => 'icexwlbitcoin',
+            'password' => 'wnhrELWXQZRh5NPSjbprJFeJFE7ZkT',
+            'test' => 0,
         ],
 
         'btc-cash' => [
-            'host' => '',
-            'port' => '',
-            'user' => '',
-            'password' => '',
-            'test' => false
+            'host' => '192.168.121.10',
+            'port' => '8332',
+            'user' => 'bitcoin',
+            'password' => 'password',
+            'test' => 0
         ],
 
         'dash' => [
-            'host' => '',
-            'port' => '',
-            'user' => '',
-            'password' => '',
-            'test' => false,
+            'host' => '192.168.121.11',
+            'port' => '9998',
+            'user' => 'dashrpc',
+            'password' => 'TFubreGaK/kcZBgz4NWAAXF55wPkJRUFcquivcTt1xT2',
+            'test' => 0,
         ],
 
+	    'litecoin' => [
+		    'host' => '192.168.121.4',
+		    'port' => '9332',
+		    'user' => 'bitcoin',
+		    'password' => 'password',
+		    'test' => 0,
+	    ],
+
         'monero' => [
-            'host' => '',
-            'port' => '',
-            'user' => '',
-            'password' => '',
+            'host' => '192.168.121.12',
+            'port' => '18081',
+            'user' => 'icex',
+            'password' => 'secure',
             'test' => false,
         ],
 
@@ -90,7 +98,7 @@ class NodesTest extends TestCase
             'port' => '8545',
             'user' => '',
             'password' => '',
-            'test' => false,
+            'test' => 1,
         ],
 
         'ethereum-classic' => [
@@ -116,214 +124,30 @@ class NodesTest extends TestCase
             }
         }
     }
-	/*
-    public function testNodesGetBlockChainInfo()
-    {
-        foreach ($this->credentials as $node_name => $credentials) {
-            if (!$credentials['test']) {
-                continue;
-            }
-            $node = new $this->class_names[$node_name]($credentials);
 
-            $response = $node->getBlockChainInfo();
-
-            $this->assertRpcResponseSuccess($response);
-        }
-    }
-
-    public function testNodesGetInfo()
-    {
-        foreach ($this->credentials as $node_name => $credentials) {
-            if (!$credentials['test']) {
-                continue;
-            }
-            $node = new $this->class_names[$node_name]($credentials);
-
-            $response = $node->getInfo();
-
-            $this->assertRpcResponseSuccess($response);
-        }
-    }
-
-    public function testNodesGetNetworkInfo()
-    {
-        foreach ($this->credentials as $node_name => $credentials) {
-            if (!$credentials['test']) {
-                continue;
-            }
-            $node = new $this->class_names[$node_name]($credentials);
-
-            $response = $node->getNetworkInfo();
-
-            $this->assertRpcResponseSuccess($response);
-        }
-    }
-
-    public function testNodesGetConnectionCount()
-    {
-        foreach ($this->credentials as $node_name => $credentials) {
-            if (!$credentials['test']) {
-                continue;
-            }
-            $node = new $this->class_names[$node_name]($credentials);
-
-            $response = $node->getConnectionCount();
-
-            $this->assertRpcResponseSuccess($response);
-        }
-    }
-
-    public function testNodesGetDifficulty()
-    {
-        foreach ($this->credentials as $node_name => $credentials) {
-            if (!$credentials['test']) {
-                continue;
-            }
-            $node = new $this->class_names[$node_name]($credentials);
-
-            $response = $node->getDifficulty();
-
-            $this->assertRpcResponseSuccess($response);
-        }
-    }
-
-    public function testNodesGetMiningInfo()
-    {
-        foreach ($this->credentials as $node_name => $credentials) {
-            if (!$credentials['test']) {
-                continue;
-            }
-            $node = new $this->class_names[$node_name]($credentials);
-
-            $response = $node->getMiningInfo();
-
-            $this->assertRpcResponseSuccess($response);
-        }
-    }
-
-    public function testNodesGetPeerInfo()
-    {
-        foreach ($this->credentials as $node_name => $credentials) {
-            if (!$credentials['test']) {
-                continue;
-            }
-            $node = new $this->class_names[$node_name]($credentials);
-
-            $response = $node->getPeerInfo();
-
-            $this->assertRpcResponseSuccess($response);
-        }
-    }
-
-	public function testNodesCreateAccount()
-	{
-		foreach ($this->credentials as $node_name => $credentials) {
-			if (!$credentials['test']) {
-				continue;
-			}
-			$node = new $this->class_names[$node_name]($credentials);
-
-			$response = $node->createAccount();
-
-			$this->assertRpcResponseSuccess($response);
-		}
-	}
-
-	public function testNodesSend()
-	{
-		foreach ($this->credentials as $node_name => $credentials) {
-			if (!$credentials['test']) {
-				continue;
-			}
-			$node = new $this->class_names[$node_name]($credentials);
-
-			$response = $node->send(['test_account', 'test_account1', 1]);
-
-			$this->assertRpcResponseSuccess($response);
-		}
-	}
-
-	public function testNodesGetAccount()
-	{
-		foreach ($this->credentials as $node_name => $credentials) {
-			if (!$credentials['test']) {
-				continue;
-			}
-			$node = new $this->class_names[$node_name]($credentials);
-
-			$new_address = $node->createAccount();
-
-			$response = $node->getAccount([$new_address]);
-
-			$this->assertRpcResponseSuccess($response);
-		}
-	}
-	*/
 	public function testNodesGetAccountAddress()
 	{
 		foreach ($this->credentials as $node_name => $credentials) {
 			if (!$credentials['test']) {
 				continue;
 			}
+
 			$node = new $this->class_names[$node_name]($credentials);
 
-			$response = $node->getWalletBalance('1DdSXmfRMFQzYeeaLGntwdhJ48tbTvVh16');
+			//eth
+			$check = $node->checkNode();
+			$response = $node->getAccounts();
+			//$response = $node->client->getrawtransaction('fb128b353871e101fee59e4aa4d1044ecd91a1a23f130f09807bfa7fa2992c8e', 1);
 
+			//$response = $node->getWalletBalance('1PqCKDQk332UosseXynFWXWbZjGMQHeDcr');
+
+			//$response = $node->getWalletBalance('1Bdyw9pCsPQ9zn8QxR93KWW1ZnTFavgGx4');
+
+			//$response = $node->client->listtransactions();
+
+			dd($check, $response);
 
 			$this->assertRpcResponseSuccess($response);
 		}
 	}
-	/*
-	public function testNodesGetBalance()
-	{
-		foreach ($this->credentials as $node_name => $credentials) {
-			if (!$credentials['test']) {
-				continue;
-			}
-			$node = new $this->class_names[$node_name]($credentials);
-
-			$response = $node->getBalance();
-
-			$this->assertRpcResponseSuccess($response);
-		}
-	}
-
-	public function testNodesCoinHistory()
-	{
-		foreach ($this->credentials as $node_name => $credentials) {
-			if (!$credentials['test']) {
-				continue;
-			}
-			$node = new $this->class_names[$node_name]($credentials);
-
-			$response = $node->coinHistory();
-
-			$this->assertRpcResponseSuccess($response);
-		}
-	}
-
-	public function testNodesSign()
-	{
-		foreach ($this->credentials as $node_name => $credentials) {
-			if (!$credentials['test']) {
-				continue;
-			}
-			$node = new $this->class_names[$node_name]($credentials);
-
-			$response = $node->sign(['hexstring']);
-
-			$this->assertRpcResponseSuccess($response);
-		}
-	}
-
-	public function testCrossRate()
-	{
-		$carbon = new \Carbon\Carbon();
-		$guzzle = new \GuzzleHttp\Client();
-		$icex = new \Icex\IcexWallet\Models\IcexAPIClient($guzzle);
-
-		$cross_rate = (new \Icex\IcexWallet\Containers\ConversionContainer($carbon, $icex))->cross_rate('BTC', 'EUR');
-
-		$this->assertTrue($cross_rate);
-	}*/
 }

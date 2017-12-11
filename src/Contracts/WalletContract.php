@@ -69,4 +69,35 @@ interface WalletContract {
 	 */
 	public function getWalletBalance($wallet);
 
+	/**
+	 * Get account transactions history
+	 *
+	 * @param $account
+	 *
+	 * @return mixed
+	 */
+	public function getHistory($account);
+
+	/**
+	 * Send coins from user's account to wallet
+	 *
+	 * @param $from_account
+	 * @param $to_wallet
+	 * @param $amount
+	 *
+	 * @return mixed
+	 */
+	public function sendToWallet($from_account, $to_wallet, $amount);
+
+	/**
+	 * Send coins between two accounts.
+	 * Used first (to_accounts) wallet from list.
+	 *
+	 * @param $from_account
+	 * @param $to_account
+	 * @param $amount
+	 *
+	 * @return mixed
+	 */
+	public function sendToAccount($from_account, $to_account, $amount);
 }

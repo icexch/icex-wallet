@@ -146,4 +146,65 @@ abstract class WalletRpcContainer extends WalletContainer
 
         return $this->getAccountBalance($account);
     }
+
+	/**
+	 * Get account's transactions list
+	 *
+	 * @param $account
+	 *
+	 * @return bool
+	 */
+    public function getHistory($account)
+    {
+	    if(!$account_check = $this->getWallets($account)) {
+		    return false;
+	    }
+
+	    return $this->client->listtransactions($account);
+    }
+
+	/**
+	 * Send coins from account to wallet
+	 *
+	 * @param $from_account
+	 * @param $to_wallet
+	 * @param $amount
+	 *
+	 * @return bool
+	 */
+    public function sendToWallet($from_account, $to_wallet, $amount)
+    {
+	    if(!$wallet_data = $this->validateAddress($to_wallet)) {
+	    	return false;
+	    }
+
+	    if(!$account = $this->getWallets($from_account)) {
+	    	return false;
+	    }
+
+	    return $this->client->sendfrom($from_account, $to_wallet, $amount);
+    }
+
+	/**
+	 * Send coins between accounts
+	 *
+	 * @param $from_account
+	 * @param $to_account
+	 * @param $amount
+	 *
+	 * @return bool
+	 */
+    public function sendToAccount($from_account, $to_account, $amount)
+    {
+
+	    if(!$account_from_wallets = $this->getWallets($from_account)) {
+		    return false;
+	    }
+
+	    if(!$account_to_wallets = $this->getWallets($to_account)) {
+		    return false;
+	    }
+
+	    return $this->client->sendfrom($from_account, $account_to_wallets[0], $amount);
+    }
 }
