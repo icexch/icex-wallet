@@ -38,42 +38,42 @@ class NodesTest extends TestCase
     // test key - for on or off testing node
     private $credentials = [
         'bitcoin' => [
-            'host' => '192.168.121.2',
-            'port' => '8332',
-            'user' => 'icexwlbitcoin',
-            'password' => 'wnhrELWXQZRh5NPSjbprJFeJFE7ZkT',
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
             'test' => 0,
         ],
 
         'btc-cash' => [
-            'host' => '192.168.121.10',
-            'port' => '8332',
-            'user' => 'bitcoin',
-            'password' => 'password',
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
             'test' => 0
         ],
 
         'dash' => [
-            'host' => '192.168.121.11',
-            'port' => '9998',
-            'user' => 'dashrpc',
-            'password' => 'TFubreGaK/kcZBgz4NWAAXF55wPkJRUFcquivcTt1xT2',
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
             'test' => 0,
         ],
 
 	    'litecoin' => [
-		    'host' => '192.168.121.4',
-		    'port' => '9332',
-		    'user' => 'bitcoin',
-		    'password' => 'password',
+		    'host' => '',
+		    'port' => '',
+		    'user' => '',
+		    'password' => '',
 		    'test' => 0,
 	    ],
 
         'monero' => [
-            'host' => '192.168.121.12',
-            'port' => '18081',
-            'user' => 'icex',
-            'password' => 'secure',
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
             'test' => false,
         ],
 
@@ -94,8 +94,8 @@ class NodesTest extends TestCase
         ],
 
         'ethereum' => [
-            'host' => '192.168.121.8',
-            'port' => '8545',
+            'host' => '',
+            'port' => '',
             'user' => '',
             'password' => '',
             'test' => 1,
