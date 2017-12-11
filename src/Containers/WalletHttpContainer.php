@@ -79,4 +79,49 @@ abstract class WalletHttpContainer extends WalletContainer
     {
         return $this->error;
     }
+
+    public function executeMethod($method, $params = [], $http_method = 'GET')
+    {
+        return $this->request($method, $params, $http_method);
+    }
+
+    /**
+     * Get account's transactions list
+     *
+     * @param $account
+     *
+     * @return bool
+     */
+    public function getHistory($account)
+    {
+        // TODO implement this method
+    }
+
+    /**
+     * Send coins from account to wallet
+     *
+     * @param $from_account
+     * @param $to_wallet
+     * @param $amount
+     *
+     * @return bool
+     */
+    public function sendToWallet($from_account, $to_wallet, $amount)
+    {
+        // TODO implement this method
+    }
+
+    /**
+     * Send coins between accounts
+     *
+     * @param $from_account
+     * @param $to_account
+     * @param $amount
+     *
+     * @return bool
+     */
+    public function sendToAccount($from_account, $to_account, $amount)
+    {
+        // TODO implement this method
+    }
 }

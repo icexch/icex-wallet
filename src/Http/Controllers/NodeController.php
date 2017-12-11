@@ -52,4 +52,25 @@ class NodeController extends BaseController
 
         return $this->responseJson($response, $node);
     }
+
+    /**
+     * execute node method
+     *
+     * @param string $node
+     * @param string $method
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function executeMethodRaw($node, $method, Request $request)
+    {
+        $node_wallet = $this->wallet->get($node);
+
+        $response = $node_wallet->executeMethod($method, $request->input());
+
+        if ($response === false) {
+            return $this->responseJson(['error' => $node_wallet->getError()], $node);
+        }
+
+        return $this->responseJson($response, $node);
+    }
 }

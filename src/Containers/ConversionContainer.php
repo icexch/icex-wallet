@@ -57,19 +57,30 @@ class ConversionContainer implements ConversionContract {
 
 	/**
 	 * Get crypto coin rate from ICEX API
-	 * TODO: add date
 	 *
 	 * @param      $coin
 	 * @param null $date
 	 *
 	 * @return bool
 	 */
-	protected function getCryptoRate($coin, $date = null)
+	private function getCryptoRate($coin, $date = null)
 	{
 		$coin = $this->crypto_coins[$coin];
-		if($response = $this->icex->request('coins/'.$coin['name']))  {
-			return $response->data->price_usd;
-		}
+
+		if (!$date) {
+            if($response = $this->icex->request('coins/'.$coin['name']))  {
+//                new price format
+//                return $response->data->price->value;
+                return $response->data->price_usd;
+            }
+        }
+
+        if($response = $this->icex->request('coins/'.$coin['name'].'/hist'))  {
+            $date = intval(round($date/60)*60 * 1000);
+            $hist = array_column($response->data, 'value', 'timestamp');
+
+            return $hist[$date] ?? false;
+        }
 
 		return false;
 	}
