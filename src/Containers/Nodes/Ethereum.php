@@ -29,9 +29,37 @@ class Ethereum extends WalletRpcContainer {
 //        return $this->client->callMethod($method, $params);
 //    }
 
+    protected function getBlocksCount()
+    {
+        $response = $this->http_request('https://api.blockcypher.com/v1/eth/main');
+        $response = json_decode($response);
+
+        return $response->height;
+    }
+
     public function checkNode()
     {
-        return $this->client->callMethod('eth_syncing', []);
+        if (!($info = $this->client->eth_syncing())) {
+            return [
+                'result' => false,
+                'sync' => false,
+            ];
+        }
+
+        $selfBlockCount = hexdec($info['currentBlock']);
+        $blockCount = $this->getBlocksCount();
+
+        if ($blockCount > $selfBlockCount) {
+            return [
+                'result' => true,
+                'sync' => false,
+            ];
+        }
+
+        return [
+            'result' => true,
+            'sync' => true,
+        ];
     }
 
     public function createWallet($account)
