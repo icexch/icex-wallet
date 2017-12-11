@@ -13,6 +13,6 @@ class EthereumClassic extends Ethereum {
 
     protected function getBlocksCount()
     {
-        return $this->http_request('https://etcchain.com/gethProxy/eth_blockNumber');
+        return hexdec($this->http_request('https://etcchain.com/gethProxy/eth_blockNumber'));
     }
 }
