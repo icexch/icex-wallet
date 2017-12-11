@@ -9,6 +9,7 @@
 namespace Icex\IcexWallet\Containers;
 
 use Icex\IcexWallet\Contracts\WalletContract;
+use GuzzleHttp\Client;
 
 abstract class WalletContainer implements WalletContract {
 
@@ -26,6 +27,15 @@ abstract class WalletContainer implements WalletContract {
             $credentials = config('wallet.nodes.'.$this->node);
         }
         $this->credentials = $credentials;
+    }
+
+    public function http_request($url, $params = [], $http_method = 'GET')
+    {
+        $client = new Client;
+
+        return $client->request($http_method, $url, [
+            'query' => $params
+        ])->getBody()->getContents();
     }
 
     public function checkNode()

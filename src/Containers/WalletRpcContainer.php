@@ -54,7 +54,27 @@ abstract class WalletRpcContainer extends WalletContainer
 
     public function checkNode()
     {
-        return $this->client->getinfo();
+        if (!($info = $this->client->getinfo())) {
+            return [
+                'result' => false,
+                'sync' => false,
+            ];
+        }
+
+        $selfBlockCount = $info['blocks'];
+        $blockCount = $this->getBlocksCount();
+
+        if ($blockCount > $selfBlockCount) {
+            return [
+                'result' => true,
+                'sync' => false,
+            ];
+        }
+
+        return [
+            'result' => true,
+            'sync' => true,
+        ];
     }
 
     /**

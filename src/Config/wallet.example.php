@@ -74,5 +74,6 @@ return [
         'getaccount' => 'getAccount',
         'getaccountbalance' => 'getAccountBalance',
         'getwalletbalance' => 'getWalletBalance',
+        'checknode' => 'checkNode',
     ],
 ];
