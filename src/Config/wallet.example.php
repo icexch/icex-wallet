@@ -29,6 +29,13 @@ return [
             'password' => ''
         ],
 
+        'litecoin' => [
+            'host' => '',
+            'port' => '',
+            'user' => '',
+            'password' => '',
+        ],
+
         'monero' => [
             'host' => '',
             'port' => '',
