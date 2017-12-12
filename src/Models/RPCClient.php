@@ -209,6 +209,7 @@ class RPCClient
 		}
 
 		if ($this->error) {
+			dd($this->error);
 			return false;
 		}
 

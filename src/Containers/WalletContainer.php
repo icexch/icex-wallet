@@ -72,4 +72,19 @@ abstract class WalletContainer implements WalletContract {
     {
         // TODO: Implement checkNode() method.
     }
+
+    public function sendToAccount($from_account, $to_account, $amount)
+    {
+	    // TODO: Implement sendToAccount() method.
+    }
+
+    public function sendToWallet($from_account, $to_wallet, $amount)
+    {
+	    // TODO: Implement sendToWallet() method.
+    }
+
+    public function history($account, $type = null)
+    {
+	    // TODO: Implement history() method.
+    }
 }

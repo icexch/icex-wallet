@@ -18,6 +18,7 @@ class WalletProvider extends ServiceProvider{
 
 	public function boot()
 	{
+
 		$this->publishes([
 			__DIR__.'/../Config/wallet.php' => config_path('wallet.php'),
 		]);

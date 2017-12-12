@@ -155,7 +155,7 @@ abstract class WalletRpcContainer extends WalletContainer
      *
      * @param $wallet
      *
-     * @return float
+     * @return float|bool
      */
     public function getWalletBalance($wallet) {
 
@@ -170,22 +170,6 @@ abstract class WalletRpcContainer extends WalletContainer
         }
 
         return $this->getAccountBalance($account);
-    }
-
-    /**
-     * Get account's transactions list
-     *
-     * @param $account
-     *
-     * @return bool
-     */
-    public function getHistory($account)
-    {
-        if(!$account_check = $this->getWallets($account)) {
-            return false;
-        }
-
-        return $this->client->listtransactions($account);
     }
 
     /**
@@ -232,4 +216,41 @@ abstract class WalletRpcContainer extends WalletContainer
 
         return $this->client->sendfrom($from_account, $account_to_wallets[0], $amount);
     }
+
+	/**
+	 * Get all transactions for account
+	 * Type: 'in', 'out' or empty.
+	 * Type is for filter transactions list
+	 *
+	 * @param      $account
+	 * @param null $type
+	 *
+	 * @return bool|\Illuminate\Support\Collection|static
+	 */
+    public function history($account, $type = null)
+    {
+	    if(!$this->getWallets($account)) {
+		    return false;
+	    }
+
+	    $list = collect($this->client->listtransactions($account));
+
+	    switch ($type) {
+		    case 'in':
+		    	$list = $list->filter(function($tx){
+					return $tx['category'] == 'receive';
+			    });
+		    	break;
+		    case 'out':
+			    $list = $list->filter(function($tx){
+				    return $tx['category'] == 'send';
+			    });
+		    	break;
+		    default:
+		    	break;
+	    }
+
+	    return $list;
+    }
+
 }
