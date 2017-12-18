@@ -23,27 +23,30 @@ class Neo extends WalletRpcContainer {
 
     public function checkNode()
     {
+    	$return = [
+		    'result' => false,
+		    'sync' => false,
+	    ];
+
         if (!($info = $this->client->getblockcount())) {
-            return [
-                'result' => false,
-                'sync' => false,
-            ];
+            return $return;
         }
+
+        $return['result'] = true;
 
         $selfBlockCount = $info;
         $blockCount = $this->getBlocksCount();
 
+	    $return['local_height'] = $selfBlockCount;
+	    $return['global_height'] = $blockCount;
+
         if ($blockCount > $selfBlockCount) {
-            return [
-                'result' => true,
-                'sync' => false,
-            ];
+            return $return;
         }
 
-        return [
-            'result' => true,
-            'sync' => true,
-        ];
+        $return['sync'] = true;
+
+        return $return;
     }
 
 

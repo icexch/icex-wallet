@@ -13,21 +13,6 @@ use Icex\IcexWallet\Models\EthereumClient;
 
 class Ethereum extends WalletRpcContainer {
     protected $node = 'ethereum';
-    // TODO переделать на обычный RPCClient
-//	public function getClient(array $credentials)
-//	{
-//		return (new EthereumClient($credentials))->client;
-//	}
-//
-//	public function getError()
-//    {
-//        return null;
-//    }
-//
-//    public function executeMethod($method, $params = [])
-//    {
-//        return $this->client->callMethod($method, $params);
-//    }
 
     protected function getBlocksCount()
     {
@@ -39,27 +24,30 @@ class Ethereum extends WalletRpcContainer {
 
     public function checkNode()
     {
+    	$return = [
+		    'result' => false,
+		    'sync' => false,
+	    ];
+
         if (!($info = $this->client->eth_syncing())) {
-            return [
-                'result' => false,
-                'sync' => false,
-            ];
+            return $return;
         }
+
+        $return['result'] = true;
 
         $selfBlockCount = hexdec($info['currentBlock']);
         $blockCount = $this->getBlocksCount();
 
+	    $return['local_height'] = $selfBlockCount;
+	    $return['global_height'] = $blockCount;
+
         if ($blockCount > $selfBlockCount) {
-            return [
-                'result' => true,
-                'sync' => false,
-            ];
+            return $return;
         }
 
-        return [
-            'result' => true,
-            'sync' => true,
-        ];
+        $return['sync'] = true;
+
+        return $return;
     }
 
     public function createWallet($account)
