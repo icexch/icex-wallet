@@ -52,7 +52,7 @@ class Ethereum extends WalletRpcContainer {
 
     public function createWallet($account)
     {
-        return $this->client->callMethod('personal_newAccount', [$account]);
+        return call_user_func_array([$this->client, 'personal_newAccount'], [$account]);
     }
 
     public function getWallets($account)
@@ -62,7 +62,7 @@ class Ethereum extends WalletRpcContainer {
 
     public function getAccounts()
     {
-        return $this->client->callMethod('personal_listAccounts', []);
+        return $this->client->personal_listAccounts();
     }
 
     public function getAccount($wallet)
@@ -77,7 +77,7 @@ class Ethereum extends WalletRpcContainer {
 
     public function getWalletBalance($wallet)
     {
-        return $this->client->callMethod('eth_getBalance', [$wallet]);
+        return call_user_func_array([$this->client, 'eth_getBalance'], [$wallet]);
     }
 
     public function sendToAccount($from_account, $to_account, $amount)
@@ -87,12 +87,40 @@ class Ethereum extends WalletRpcContainer {
 
     public function sendToWallet($from_wallet, $to_wallet, $amount)
     {
-        return $this->client->callMethod('eth_sendTransaction', [
+        return call_user_func_array(
+        	[
+        		$this->client,
+		        'eth_sendTransaction'
+	        ],
+	        [
             'from' => $from_wallet,
             'to' => $to_wallet,
             'value' => $amount,
             'gas' => 21000,
             'gasPrice' => 60
-        ]);
+            ]
+        );
+    }
+
+    public function getBlock($hash, $transaction_objects = true)
+    {
+	    return call_user_func_array([$this->client, 'eth_getBlockByHash'], [$hash, $transaction_objects]);
+    }
+
+    public function getBlockByHeight($height, $transaction_objects = true)
+    {
+    	return call_user_func_array([$this->client, 'eth_getBlockByNumber'], [$height, $transaction_objects]);
+    }
+
+    public function getLastBlock($transaction_objects = true)
+    {
+	    $height = $this->client->eth_blockNumber();
+
+	    return $this->getBlockByHeight($height, $transaction_objects);
+    }
+
+    public function getTx($txid)
+    {
+	    return call_user_func_array([$this->client, 'eth_getTransactionByHash'], [$txid]);
     }
 }

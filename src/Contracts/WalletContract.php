@@ -17,6 +17,45 @@ interface WalletContract {
      */
     public function checkNode();
 
+	/**
+	 * Get block info by header hash
+	 * https://bitcoin.org/en/developer-reference#getblock
+	 *
+	 * @param $hash
+	 *
+	 * @return mixed
+	 */
+	public function getBlock($hash);
+
+	/**
+	 * Get block info at the given height in the local best block chain.
+	 * 1. hash -> https://bitcoin.org/en/developer-reference#getblockhash
+	 * 2. this->getBlock(hash)
+	 * @param $height
+	 *
+	 * @return mixed
+	 */
+	public function getBlockByHeight($height);
+
+	/**
+	 * Get info about of the most recent block on the best block chain.
+	 * 1.hash -> https://bitcoin.org/en/developer-reference#getbestblockhash
+	 * 2.this->getBlock(hash)
+	 *
+	 * @return mixed
+	 */
+	public function getLastBlock();
+
+	/**
+	 * Gets detailed information about an in-wallet transaction.
+	 * https://bitcoin.org/en/developer-reference#gettransaction
+	 *
+	 * @param $txid
+	 *
+	 * @return mixed
+	 */
+	public function getTx($txid);
+
     /**
      * Create new wallet for account
      *

@@ -122,4 +122,24 @@ class Monero extends WalletRpcContainer {
     public function sign($params = []) {
         return call_user_func_array([$this->client, 'sign'], $params);
     }
+
+    public function getBlock($hash)
+    {
+	    return call_user_func_array([$this->client, 'getblock'], ['hash' => $hash]);
+    }
+
+    public function getBlockByHeight($height)
+    {
+	    return call_user_func_array([$this->client, 'getblock'], ['height' => $height]);
+    }
+
+    public function getLastBlock()
+    {
+	    return $this->getBlockByHeight($this->client->getlastblockheader());
+    }
+
+    public function getTx($txid)
+    {
+	    return call_user_func_array([$this->client, 'get_transfer_by_txid'], ['txid' => $txid]);
+    }
 }

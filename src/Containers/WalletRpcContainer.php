@@ -256,4 +256,54 @@ abstract class WalletRpcContainer extends WalletContainer
 	    return $list;
     }
 
+	/**
+	 * Get block data by hash
+	 *
+	 * @param $hash
+	 *
+	 * @return mixed
+	 */
+    public function getBlock($hash)
+    {
+	    return $this->client->getblock($hash);
+    }
+
+	/**
+	 * Get block data by height
+	 *
+	 * @param $height
+	 *
+	 * @return mixed
+	 */
+    public function getBlockByHeight($height)
+    {
+	    $hash = $this->client->getblockhash($height);
+
+	    return $this->getBlock($hash);
+    }
+
+	/**
+	 * Get data for last block
+	 *
+	 * @return mixed
+	 */
+    public function getLastBlock()
+    {
+	    $hash = $this->client->getbestblockhash();
+
+	    return $this->getBlock($hash);
+    }
+
+	/**
+	 * Get transaction data by txid
+	 *
+	 * @param $txid
+	 *
+	 * @return mixed
+	 */
+    public function getTx($txid)
+    {
+	    return $this->client->gettransaction($txid);
+    }
+
 }

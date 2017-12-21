@@ -87,4 +87,23 @@ abstract class WalletContainer implements WalletContract {
     {
 	    // TODO: Implement history() method.
     }
+
+    public function getBlock($hash)
+    {
+	    // TODO: Implement getBlock() method.
+    }
+
+    public function getBlockByHeight($height)
+    {
+	    // TODO: Implement getBlockByHeight() method.
+    }
+    public function getLastBlock()
+    {
+	    // TODO: Implement getLastBlock() method.
+    }
+
+    public function getTx($txid)
+    {
+	    // TODO: Implement getTx() method.
+    }
 }
