@@ -11,9 +11,16 @@ namespace Icex\IcexWallet\Containers\Nodes;
 use Icex\IcexWallet\Containers\WalletRpcContainer;
 
 class Neo extends WalletRpcContainer {
+
+	/**
+	 * @var string
+	 */
     protected $node = 'neo';
 
-    protected function getBlocksCount()
+	/**
+	 * @return mixed
+	 */
+    protected function getGlobalHeight()
     {
         $response = $this->http_request('https:/neoscan.io//api/main_net/v1/get_all_nodes');
         $response = json_decode($response);
@@ -21,57 +28,25 @@ class Neo extends WalletRpcContainer {
         return array_column($response, 'height')[0];
     }
 
-    public function checkNode()
-    {
-    	$return = [
-		    'result' => false,
-		    'sync' => false,
-	    ];
-
-        if (!($info = $this->client->getblockcount())) {
-            return $return;
-        }
-
-        $return['result'] = true;
-
-        $selfBlockCount = $info;
-        $blockCount = $this->getBlocksCount();
-
-	    $return['local_height'] = $selfBlockCount;
-	    $return['global_height'] = $blockCount;
-
-        if ($blockCount > $selfBlockCount) {
-            return $return;
-        }
-
-        $return['sync'] = true;
-
-        return $return;
-    }
-
-
-	public function getInfo()
+	/**
+	 * @return bool
+	 */
+	protected function getLocalHeight()
 	{
-		return $this->client->getblockcount();
+		if (!($info = $this->client->getblockcount())) {
+			return false;
+		}
+
+		return $info;
 	}
 
-	public function getConnectionCount()
-	{
-		return $this->client->getconnectioncount();
-	}
-
-	public function send($params)
-	{
-		return call_user_func_array([$this->client, 'sendtoaddress'], $params);
-	}
-
-	public function getBalance($params)
-	{
-		return call_user_func_array([$this->client, 'getbalance'], $params);
-	}
-
+	/**
+	 * @param array $params
+	 *
+	 * @return mixed
+	 */
 	public function coinHistory($params = [])
 	{
-		return call_user_func_array([$this->client, 'getrawtransaction'], $params);
+		return $this->executeMethod('getrawtransaction', $params);
 	}
 }

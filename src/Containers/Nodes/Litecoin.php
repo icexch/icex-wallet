@@ -10,10 +10,17 @@ namespace Icex\IcexWallet\Containers\Nodes;
 
 use Icex\IcexWallet\Containers\WalletRpcContainer;
 
-class Litecoin extends WalletRpcContainer {
+class Litecoin extends Bitcoin {
+
+	/**
+	 * @var string
+	 */
     protected $node = 'litecoin';
 
-    protected function getBlocksCount()
+	/**
+	 * @return mixed
+	 */
+    protected function getGlobalHeight()
     {
         $response = $this->http_request('https://api.blockcypher.com/v1/ltc/main');
         $response = json_decode($response);

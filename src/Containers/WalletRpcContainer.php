@@ -8,7 +8,7 @@
 
 namespace Icex\IcexWallet\Containers;
 
-use Icex\IcexWallet\Models\RPCClient;
+use Icex\IcexWallet\Clients\RPCClient;
 
 abstract class WalletRpcContainer extends WalletContainer
 {
@@ -52,34 +52,6 @@ abstract class WalletRpcContainer extends WalletContainer
         return $this->client->error;
     }
 
-    public function checkNode()
-    {
-    	$return = [
-		    'result' => false,
-		    'sync' => false,
-	    ];
-
-        if (!($info = $this->client->getinfo())) {
-            return $return;
-        }
-
-        $return['result'] = true;
-
-        $selfBlockCount = $info['blocks'];
-        $blockCount = $this->getBlocksCount();
-
-	    $return['local_height'] = $selfBlockCount;
-	    $return['global_height'] = $blockCount;
-
-        if ($blockCount > $selfBlockCount) {
-            return $return;
-        }
-
-        $return['sync'] = true;
-
-        return $return;
-    }
-
     /**
      * Check availability of node address
      *
@@ -107,7 +79,7 @@ abstract class WalletRpcContainer extends WalletContainer
      * @return mixed
      */
     public function createWallet($account) {
-        return call_user_func_array([$this->client, 'getaccountaddress'], [$account]);
+        return $this->executeMethod('getaccountaddress', [$account]);
     }
 
     /**
@@ -127,7 +99,7 @@ abstract class WalletRpcContainer extends WalletContainer
      * @return mixed
      */
     public function getWallets($account) {
-        return call_user_func_array([$this->client, 'getaddressesbyaccount'], [$account]);
+        return $this->executeMethod('getaddressesbyaccount', [$account]);
     }
 
     /**
@@ -138,7 +110,7 @@ abstract class WalletRpcContainer extends WalletContainer
      * @return mixed
      */
     public function getAccount($wallet) {
-        return call_user_func_array([$this->client, 'getaccount'], [$wallet]);
+        return $this->executeMethod('getaccount', [$wallet]);
     }
 
     /**
@@ -150,7 +122,7 @@ abstract class WalletRpcContainer extends WalletContainer
      * @return mixed
      */
     public function getAccountBalance($account = null) {
-        return call_user_func_array([$this->client, 'getbalance'], ($account) ? [$account]: []);
+        return $this->executeMethod('getbalance', ($account) ? [$account]: []);
     }
 
     /**
@@ -228,7 +200,7 @@ abstract class WalletRpcContainer extends WalletContainer
 	 * @param      $account
 	 * @param null $type
 	 *
-	 * @return bool|\Illuminate\Support\Collection|static
+	 * @return bool or \Illuminate\Support\Collection|static
 	 */
     public function history($account, $type = null)
     {
@@ -265,7 +237,7 @@ abstract class WalletRpcContainer extends WalletContainer
 	 */
     public function getBlock($hash)
     {
-	    return $this->client->getblock($hash);
+	    return $this->executeMethod('getblock', $hash);
     }
 
 	/**

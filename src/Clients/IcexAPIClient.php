@@ -6,7 +6,7 @@
  * Time: 20:08
  */
 
-namespace Icex\IcexWallet\Models;
+namespace Icex\IcexWallet\Clients;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;

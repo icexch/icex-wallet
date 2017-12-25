@@ -8,12 +8,14 @@
 
 namespace Icex\IcexWallet\Containers\Nodes;
 
-use Icex\IcexWallet\Containers\WalletContainer;
-use Icex\IcexWallet\Models\RPCClient;
+use Icex\IcexWallet\Clients\RPCClient;
 use Icex\IcexWallet\Containers\WalletRpcContainer;
 
 class Monero extends WalletRpcContainer {
 
+	/**
+	 * @var string
+	 */
     protected $node = 'monero';
 
 
@@ -31,7 +33,10 @@ class Monero extends WalletRpcContainer {
         return new RPCClient($credentials['user'], $credentials['password'], $credentials['host'], $credentials['port'], 'json_rpc');
     }
 
-    protected function getBlocksCount()
+	/**
+	 * @return mixed
+	 */
+    protected function getGlobalHeight()
     {
         $response = $this->http_request('https://moneroblocks.info/api/get_stats');
         $response = json_decode($response);
@@ -39,107 +44,72 @@ class Monero extends WalletRpcContainer {
         return $response->height;
     }
 
-    public function checkNode()
-    {
-    	$return = [
-		    'result' => false,
-		    'sync' => false,
-	    ];
+	/**
+	 * @return bool
+	 */
+	protected function getLocalHeight()
+	{
+		if (!($info = $this->client->getblockcount())) {
+			return false;
+		}
 
-        if (!($info = $this->client->getblockcount())) {
-            return $return;
-        }
-
-        $return['result'] = true;
-
-        $selfBlockCount = $info['count'];
-        $blockCount = $this->getBlocksCount();
-
-	    $return['local_height'] = $selfBlockCount;
-	    $return['global_height'] = $blockCount;
-
-        if ($blockCount > $selfBlockCount) {
-            return $return;
-        }
-
-        $return['sync'] = true;
-
-        return $return;
-    }
+		return $info['count'];
+	}
 
 	/**
-	 * execute getinfo method
+	 * @param        $filename
+	 * @param        $password
+	 * @param string $language
 	 *
 	 * @return mixed
 	 */
-	public function getInfo()
+	public function createAccount($filename, $password, $language = 'English')
 	{
-		return $this->client->get_info();
+		return $this->executeMethod('create_wallet',
+			[
+				'filename' => $filename,
+				'password' => $password,
+				'language' => $language
+			]);
 	}
 
-	public function getBlockChainInfo()
-	{
-		return $this->client->getblockcount();
-	}
-
-	public function getConnectionCount()
-	{
-		return $this->client->get_connections();
-	}
-
-	public function createAccount($params = [ ])
-	{
-		return call_user_func_array([$this->client, 'create_wallet'], $params);
-	}
-
-	public function send($params = [ ])
-	{
-		return call_user_func_array([$this->client, 'transfer'], $params);
-	}
-
-	public function getAccountAddress($params)
-	{
-		return call_user_func_array([$this->client, 'getaddress'], $params);
-	}
-
-	public function getBalance($params)
-	{
-		return call_user_func_array([$this->client, 'getbalance'], $params);
-	}
-
-    /**
-     * @param array $params
-     * @return mixed
-     */
-    public function coinHistory($params = []) {
-        return call_user_func_array([$this->client, 'get_transfers'], $params);
-    }
-
-    /**
-     * @param array $params
-     * @return mixed
-     */
-    public function sign($params = []) {
-        return call_user_func_array([$this->client, 'sign'], $params);
-    }
-
+	/**
+	 * @param $hash
+	 *
+	 * @return mixed
+	 */
     public function getBlock($hash)
     {
-	    return call_user_func_array([$this->client, 'getblock'], ['hash' => $hash]);
+	    return $this->executeMethod('getblock', ['hash' => $hash]);
     }
 
+	/**
+	 * @param $height
+	 *
+	 * @return mixed
+	 */
     public function getBlockByHeight($height)
     {
-	    return call_user_func_array([$this->client, 'getblock'], ['height' => $height]);
+	    return $this->executeMethod('getblock', ['height' => $height]);
     }
 
+	/**
+	 * @return mixed
+	 */
     public function getLastBlock()
     {
-	    return $this->getBlockByHeight($this->client->getlastblockheader());
+    	$last_height = $this->executeMethod('lastblockheader');
+
+	    return $this->getBlockByHeight($last_height);
     }
 
+	/**
+	 * @param $txid
+	 *
+	 * @return mixed
+	 */
     public function getTx($txid)
     {
-	    return call_user_func_array([$this->client, 'get_transfer_by_txid'], ['txid' => $txid]);
+	    return $this->executeMethod('get_transfer_by_txid', ['txid' => $txid]);
     }
 }

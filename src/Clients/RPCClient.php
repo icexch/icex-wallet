@@ -1,6 +1,6 @@
 <?php
 
-namespace Icex\IcexWallet\Models;
+namespace Icex\IcexWallet\Clients;
 
 /*
 EasyBitcoin-PHP

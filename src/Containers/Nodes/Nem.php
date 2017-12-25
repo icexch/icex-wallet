@@ -11,9 +11,16 @@ namespace Icex\IcexWallet\Containers\Nodes;
 use Icex\IcexWallet\Containers\WalletHttpContainer;
 
 class Nem extends WalletHttpContainer {
+
+	/**
+	 * @var string
+	 */
     protected $node = 'nem';
 
-    protected function getBlocksCount()
+	/**
+	 * @return mixed
+	 */
+    protected function getGlobalHeight()
     {
         $response = $this->http_request('http://103.11.64.51:7890/chain/last-block');
         $response = json_decode($response);
@@ -21,72 +28,16 @@ class Nem extends WalletHttpContainer {
         return $response->height;
     }
 
-    public function checkNode()
+	/**
+	 * @return bool
+	 */
+    protected function getLocalHeight()
     {
-    	$return = [
-		    'result' => false,
-		    'sync' => false,
-	    ];
+	    if (!($info = $this->request('chain/height'))) {
+		    return false;
+	    }
 
-        if (!($info = $this->request('chain/height'))) {
-            return $return;
-        }
-
-        $return['result'] = true;
-
-        $selfBlockCount = $info['height'];
-        $blockCount = $this->getBlocksCount();
-
-	    $return['local_height'] = $selfBlockCount;
-	    $return['global_height'] = $blockCount;
-
-        if ($blockCount > $selfBlockCount) {
-            return $return;
-        }
-
-        $return['sync'] = true;
-
-        return $return;
-    }
-
-    /**
-     * @return bool|array
-     */
-    public function getInfo()
-    {
-        return $this->request('node/info');
-    }
-
-    /**
-     * @return bool|array
-     */
-    public function getBlockChainInfo()
-    {
-        return $this->request('chain/height');
-    }
-
-    /**
-     * @return bool|array
-     */
-    public function getNetworkInfo()
-    {
-        return $this->request('debug/time-synchronization');
-    }
-
-    /**
-     * @return bool|array
-     */
-    public function getConnectionCount()
-    {
-        return $this->request('debug/connections/incoming');
-    }
-
-    /**
-     * @return bool|array
-     */
-    public function getPeerInfo()
-    {
-        return $this->request('node/peer-list/all');
+	    return $info['height'];
     }
 
     /**
@@ -95,15 +46,6 @@ class Nem extends WalletHttpContainer {
     public function createAccount()
     {
         return $this->request('account/generate');
-    }
-
-    /**
-     * @param array $params
-     * @return array|bool
-     */
-    public function send($params)
-    {
-        return $this->request('transaction/prepare-announce', $params, 'POST');
     }
 
     /**
@@ -122,14 +64,5 @@ class Nem extends WalletHttpContainer {
     public function coinHistory($params = [])
     {
     	return $this->request('account/transfers/all', $params);
-    }
-
-    /**
-     * @param array $params
-     * @return array|bool
-     */
-    public function sign($params = [])
-    {
-        return $this->request('transaction/announce', $params, 'POST');
     }
 }

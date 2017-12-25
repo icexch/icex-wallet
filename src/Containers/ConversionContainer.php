@@ -10,7 +10,7 @@ namespace Icex\IcexWallet\Containers;
 
 use Carbon\Carbon;
 use Icex\IcexWallet\Contracts\ConversionContract;
-use Icex\IcexWallet\Models\IcexAPIClient;
+use Icex\IcexWallet\Clients\IcexAPIClient;
 use Swap\Builder;
 
 class ConversionContainer implements ConversionContract {
@@ -63,15 +63,13 @@ class ConversionContainer implements ConversionContract {
 	 *
 	 * @return bool
 	 */
-	private function getCryptoRate($coin, $date = null)
+	protected function getCryptoRate($coin, $date = null)
 	{
 		$coin = $this->crypto_coins[$coin];
 
 		if (!$date) {
             if($response = $this->icex->request('coins/'.$coin['name']))  {
-//                new price format
-//                return $response->data->price->value;
-                return $response->data->price_usd;
+                return $response->data->price->value;
             }
         }
 

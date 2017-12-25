@@ -29,6 +29,15 @@ abstract class WalletContainer implements WalletContract {
         $this->credentials = $credentials;
     }
 
+	/**
+	 * Simple HTTP request
+	 *
+	 * @param        $url
+	 * @param array  $params
+	 * @param string $http_method
+	 *
+	 * @return string
+	 */
     public function http_request($url, $params = [], $http_method = 'GET')
     {
         $client = new Client;
@@ -38,10 +47,34 @@ abstract class WalletContainer implements WalletContract {
         ])->getBody()->getContents();
     }
 
-    public function checkNode()
-    {
-        // TODO: Implement checkNode() method.
-    }
+	/**
+	 * Check availability and sync statuses of node
+	 *
+	 * @return array
+	 */
+	public function checkNode()
+	{
+		$return = [
+			'result' => false,
+			'sync' => false,
+		];
+
+		$return['global_height'] = $this->getGlobalHeight();
+
+		if(!$return['local_height'] = $this->getLocalHeight()) {
+			$return['result'] = false;
+		} else {
+			$return['result'] = true;
+		}
+
+		if ($return['global_height'] != $return['local_height']) {
+			$return['sync'] = false;
+		} else {
+			$return['sync'] = true;
+		}
+
+		return $return;
+	}
 
     public function getAccounts()
     {

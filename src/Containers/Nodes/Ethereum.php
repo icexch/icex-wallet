@@ -9,12 +9,21 @@
 namespace Icex\IcexWallet\Containers\Nodes;
 
 use Icex\IcexWallet\Containers\WalletRpcContainer;
-use Icex\IcexWallet\Models\EthereumClient;
 
 class Ethereum extends WalletRpcContainer {
-    protected $node = 'ethereum';
 
-    protected function getBlocksCount()
+	protected $gas = 21000;
+	protected $gasPrice = 60;
+
+	/**
+	 * @var string
+	 */
+	protected $node = 'ethereum';
+
+	/**
+	 * @return mixed
+	 */
+    protected function getGlobalHeight()
     {
         $response = $this->http_request('https://api.blockcypher.com/v1/eth/main');
         $response = json_decode($response);
@@ -22,105 +31,134 @@ class Ethereum extends WalletRpcContainer {
         return $response->height;
     }
 
-    public function checkNode()
-    {
-    	$return = [
-		    'result' => false,
-		    'sync' => false,
-	    ];
+	/**
+	 * @return bool
+	 */
+	protected function getLocalHeight()
+	{
+		if (!($info = $this->client->eth_syncing())) {
+			return false;
+		}
 
-        if (!($info = $this->client->eth_syncing())) {
-            return $return;
-        }
+		return hexdec($info['currentBlock']);
+	}
 
-        $return['result'] = true;
-
-        $selfBlockCount = hexdec($info['currentBlock']);
-        $blockCount = $this->getBlocksCount();
-
-	    $return['local_height'] = $selfBlockCount;
-	    $return['global_height'] = $blockCount;
-
-        if ($blockCount > $selfBlockCount) {
-            return $return;
-        }
-
-        $return['sync'] = true;
-
-        return $return;
-    }
-
+	/**
+	 * @param $account
+	 *
+	 * @return mixed
+	 */
     public function createWallet($account)
     {
-        return call_user_func_array([$this->client, 'personal_newAccount'], [$account]);
+        return $this->executeMethod('personal_newAccount', [$account]);
     }
 
+	/**
+	 * @param $account
+	 *
+	 * @return bool
+	 */
     public function getWallets($account)
     {
-        return false;
+	    //TODO
     }
 
+	/**
+	 * @return mixed
+	 */
     public function getAccounts()
     {
-        return $this->client->personal_listAccounts();
+        return $this->executeMethod('personal_listAccounts');
     }
+
 
     public function getAccount($wallet)
     {
-        return false;
+        //TODO
     }
+
 
     public function getAccountBalance($account = null)
     {
-        return false;
+	    //TODO
     }
 
+	/**
+	 * @param $wallet
+	 *
+	 * @return mixed
+	 */
     public function getWalletBalance($wallet)
     {
-        return call_user_func_array([$this->client, 'eth_getBalance'], [$wallet]);
+        return $this->executeMethod('eth_getBalance', [$wallet]);
     }
 
     public function sendToAccount($from_account, $to_account, $amount)
     {
-        return false;
+	    //TODO
     }
 
+	/**
+	 * @param $from_wallet
+	 * @param $to_wallet
+	 * @param $amount
+	 *
+	 * @return mixed
+	 */
     public function sendToWallet($from_wallet, $to_wallet, $amount)
     {
-        return call_user_func_array(
-        	[
-        		$this->client,
-		        'eth_sendTransaction'
-	        ],
+        return $this->executeMethod('eth_sendTransaction',
 	        [
             'from' => $from_wallet,
             'to' => $to_wallet,
             'value' => $amount,
-            'gas' => 21000,
-            'gasPrice' => 60
+            'gas' => $this->gas,
+            'gasPrice' => $this->gasPrice
             ]
         );
     }
 
+	/**
+	 * @param      $hash
+	 * @param bool $transaction_objects if true - return tx object, false - only txid's
+	 *
+	 * @return mixed
+	 */
     public function getBlock($hash, $transaction_objects = true)
     {
-	    return call_user_func_array([$this->client, 'eth_getBlockByHash'], [$hash, $transaction_objects]);
+	    return $this->executeMethod('eth_getBlockByHash', [$hash, $transaction_objects]);
     }
 
+	/**
+	 * @param      $height
+	 * @param bool $transaction_objects if true - return tx object, false - only txid's
+	 *
+	 * @return mixed
+	 */
     public function getBlockByHeight($height, $transaction_objects = true)
     {
-    	return call_user_func_array([$this->client, 'eth_getBlockByNumber'], [$height, $transaction_objects]);
+    	return $this->executeMethod('eth_getBlockByNumber', [$height, $transaction_objects]);
     }
 
+	/**
+	 * @param bool $transaction_objects if true - return tx object, false - only txid's
+	 *
+	 * @return mixed
+	 */
     public function getLastBlock($transaction_objects = true)
     {
-	    $height = $this->client->eth_blockNumber();
+	    $height = $this->executeMethod('eth_blockNumber');
 
 	    return $this->getBlockByHeight($height, $transaction_objects);
     }
 
+	/**
+	 * @param $txid
+	 *
+	 * @return mixed
+	 */
     public function getTx($txid)
     {
-	    return call_user_func_array([$this->client, 'eth_getTransactionByHash'], [$txid]);
+	    return $this->executeMethod('eth_getTransactionByHash', [$txid]);
     }
 }
